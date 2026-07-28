@@ -1,50 +1,59 @@
-import fs from "fs";
-import path from "path";
-
-const postsDirectory = path.join(process.cwd(), "content/posts");
+import { supabase } from "@/lib/supabase";
 
 export type Post = {
-    id: string;
-    fileId: string;
-    title: string;
-    slug: string;
-    date: string;
-    content: string;
+  id: number;
+  fileId: string;
+  title: string;
+  slug: string | null;
+  date: string;
+  content: string;
+  author?: string | null;
 };
 
-export function getAllPosts(): Post[] {
-    const files = fs.readdirSync(postsDirectory);
 
-    return files
-        .filter((file) => file.endsWith(".json"))
-        .map((file) => {
-            const filePath = path.join(postsDirectory, file);
+export async function getAllPosts(): Promise<Post[]> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("date", {
+      ascending: false,
+    });
 
-            return {
-                ...JSON.parse(fs.readFileSync(filePath, "utf8")),
-                fileId: file.replace(".json", ""),
-            };
-        })
-        .sort(
-            (a, b) =>
-                new Date(b.date).getTime() -
-                new Date(a.date).getTime()
-        );
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data.map((post) => ({
+    ...post,
+    fileId: String(post.id),
+  }));
 }
 
-export function getPostById(id: string): Post | null {
-    const filePath = path.join(postsDirectory, `${id}.json`);
 
-    if (!fs.existsSync(filePath)) {
-        return null;
-    }
+export async function getPostById(
+  id: string
+): Promise<Post | null> {
 
-    return {
-        ...JSON.parse(fs.readFileSync(filePath, "utf8")),
-        fileId: id,
-    };
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("id", Number(id))
+    .single();
+
+  if (error || !data) {
+    return null;
+  }
+
+  return {
+    ...data,
+    fileId: String(data.id),
+  };
 }
 
-export function getLatestPosts(limit = 10) {
-    return getAllPosts().slice(0, limit);
+
+export async function getLatestPosts(limit = 10) {
+  const posts = await getAllPosts();
+
+  return posts.slice(0, limit);
 }

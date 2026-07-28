@@ -7,7 +7,7 @@ export default async function ArchivePage({
 }: {
     searchParams: Promise<{ year?: string }>;
 }) {
-    const posts = getAllPosts();
+    const posts = await getAllPosts();
 
     const years = Array.from(
         new Set(posts.map((post) => new Date(post.date).getFullYear()))

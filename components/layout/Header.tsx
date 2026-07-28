@@ -45,6 +45,16 @@ export default function Header() {
                     />
 
                 </Link>
+                <Link
+                    href="/admin"
+                    className="
+    text-sm
+    text-[var(--muted)]
+    hover:text-[var(--accent)]
+  "
+                >
+                    Admin Login
+                </Link>
 
             </div>
         </header>

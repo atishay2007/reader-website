@@ -1,8 +1,9 @@
 import { getLatestPosts } from "@/lib/posts";
 import Link from "next/link";
 
-export default function FeaturedPost() {
-    const post = getLatestPosts(1)[0];
+export default async function FeaturedPost() {
+    const posts = await getLatestPosts(1);
+    const post = posts[0];
 
     if (!post) return null;
 
@@ -11,13 +12,13 @@ export default function FeaturedPost() {
 
             <div
                 className="
-          border
-          border-[var(--border)]
-          bg-[var(--background)]
-          px-8
-          py-12
-          md:px-14
-        "
+                  border
+                  border-[var(--border)]
+                  bg-[var(--background)]
+                  px-8
+                  py-12
+                  md:px-14
+                "
             >
 
                 <p className="text-sm tracking-[0.35em] text-[var(--accent)]">
@@ -27,13 +28,13 @@ export default function FeaturedPost() {
 
                 <h2
                     className="
-            mt-6
-            font-[var(--font-hindi)]
-            text-4xl
-            font-semibold
-            leading-relaxed
-            md:text-5xl
-          "
+                      mt-6
+                      font-[var(--font-hindi)]
+                      text-4xl
+                      font-semibold
+                      leading-relaxed
+                      md:text-5xl
+                    "
                 >
                     {post.title}
                 </h2>
@@ -50,13 +51,13 @@ export default function FeaturedPost() {
 
                 <p
                     className="
-            mt-8
-            max-w-3xl
-            font-[var(--font-hindi)]
-            text-lg
-            leading-loose
-            text-[var(--muted)]
-          "
+                      mt-8
+                      max-w-3xl
+                      font-[var(--font-hindi)]
+                      text-lg
+                      leading-loose
+                      text-[var(--muted)]
+                    "
                 >
                     {post.content
                         .replace(/<[^>]*>/g, "")
@@ -68,11 +69,11 @@ export default function FeaturedPost() {
                 <Link
                     href={`/post/${post.fileId}`}
                     className="
-            mt-8
-            inline-block
-            text-[var(--accent)]
-            hover:underline
-          "
+                      mt-8
+                      inline-block
+                      text-[var(--accent)]
+                      hover:underline
+                    "
                 >
                     पूरा लेख पढ़ें →
                 </Link>

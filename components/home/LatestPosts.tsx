@@ -1,8 +1,8 @@
 import { getLatestPosts } from "@/lib/posts";
 import Link from "next/link";
 
-export default function LatestPosts() {
-    const posts = getLatestPosts(8);
+export default async function LatestPosts() {
+    const posts = await getLatestPosts(8);
 
     return (
         <section

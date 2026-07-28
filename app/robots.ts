@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://shreedeshna.com/sitemap.xml",
+    sitemap: "https://shreedeshna.in/sitemap.xml",
   };
 }

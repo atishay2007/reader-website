@@ -16,7 +16,7 @@ const english = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://shreedeshna.com"),
+    metadataBase: new URL("https://shreedeshna.in"),
     title: {
         default: "श्री देशना",
         template: "%s | श्री देशना",
