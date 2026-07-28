@@ -1,31 +1,84 @@
+import { getLatestPosts } from "@/lib/posts";
+import Link from "next/link";
+
 export default function FeaturedPost() {
-  return (
-    <section className="py-20">
+    const post = getLatestPosts(1)[0];
 
-      <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
-        Featured
-      </p>
+    if (!post) return null;
 
-      <h2 className="mt-5 text-5xl font-bold">
-        देवता धरती पर
-      </h2>
+    return (
+        <section className="mx-auto max-w-5xl px-6 py-20">
 
-      <p className="mt-3 text-[var(--muted)]">
-        August 19, 2021 • 6 min read
-      </p>
+            <div
+                className="
+          border
+          border-[var(--border)]
+          bg-[var(--background)]
+          px-8
+          py-12
+          md:px-14
+        "
+            >
 
-      <p className="mt-8 max-w-3xl text-lg leading-9">
-        This article will later be loaded automatically from your Blogger
-        archive. For now, it serves as a placeholder while we build the site.
-      </p>
+                <p className="text-sm tracking-[0.35em] text-[var(--accent)]">
+                    प्रमुख लेख
+                </p>
 
-      <a
-        href="/post/devta-dharti-par"
-        className="mt-10 inline-block text-lg font-medium text-[var(--accent)] hover:underline"
-      >
-        Read article →
-      </a>
 
-    </section>
-  );
+                <h2
+                    className="
+            mt-6
+            font-[var(--font-hindi)]
+            text-4xl
+            font-semibold
+            leading-relaxed
+            md:text-5xl
+          "
+                >
+                    {post.title}
+                </h2>
+
+
+                <p className="mt-4 text-sm text-[var(--muted)]">
+                    {new Date(post.date).toLocaleDateString("hi-IN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                    })}
+                </p>
+
+
+                <p
+                    className="
+            mt-8
+            max-w-3xl
+            font-[var(--font-hindi)]
+            text-lg
+            leading-loose
+            text-[var(--muted)]
+          "
+                >
+                    {post.content
+                        .replace(/<[^>]*>/g, "")
+                        .slice(0, 300)}
+                    ...
+                </p>
+
+
+                <Link
+                    href={`/post/${post.fileId}`}
+                    className="
+            mt-8
+            inline-block
+            text-[var(--accent)]
+            hover:underline
+          "
+                >
+                    पूरा लेख पढ़ें →
+                </Link>
+
+            </div>
+
+        </section>
+    );
 }
