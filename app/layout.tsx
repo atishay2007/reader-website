@@ -16,9 +16,15 @@ const english = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-    title: "श्री देशना",
-    description: "A home for thoughtful Hindi writing.",
+    metadataBase: new URL("https://shreedeshna.com"),
+    title: {
+        default: "श्री देशना",
+        template: "%s | श्री देशना",
+    },
+    description:
+        "हिंदी साहित्य, विचार और संस्कृति का डिजिटल संग्रह।",
 };
+
 
 export default function RootLayout({
     children,

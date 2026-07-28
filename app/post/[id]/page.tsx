@@ -14,11 +14,28 @@ export async function generateMetadata({
         return {};
     }
 
+    const description =
+        post.content
+            ?.replace(/<[^>]*>/g, "")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, 160) || post.title;
+
     return {
         title: `${post.title} | श्री देशना`,
-        description: post.content
-            .replace(/<[^>]*>/g, "")
-            .slice(0, 160),
+        description,
+
+        openGraph: {
+            title: `${post.title} | श्री देशना`,
+            description,
+            type: "article",
+        },
+
+        twitter: {
+            card: "summary",
+            title: `${post.title} | श्री देशना`,
+            description,
+        },
     };
 }
 
@@ -40,9 +57,19 @@ export default async function PostPage({
 
             <header className="mb-12 text-center">
 
-                <h1 className="font-[var(--font-hindi)] text-4xl font-semibold leading-relaxed text-[var(--foreground)] md:text-5xl">
+                <h1
+                    className="
+            font-[var(--font-hindi)]
+            text-4xl
+            font-semibold
+            leading-relaxed
+            text-[var(--foreground)]
+            md:text-5xl
+          "
+                >
                     {post.title}
                 </h1>
+
 
                 <p className="mt-6 text-sm text-[var(--accent)]">
                     {new Date(post.date).toLocaleDateString("hi-IN", {
@@ -51,6 +78,7 @@ export default async function PostPage({
                         year: "numeric",
                     })}
                 </p>
+
 
                 <div className="mx-auto mt-8 h-px w-24 bg-[var(--accent)]" />
 
