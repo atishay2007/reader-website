@@ -72,3 +72,39 @@ img {
 button {
     cursor: pointer;
 }
+
+.perspective {
+    perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+.writing-vertical {
+    writing-mode: vertical-rl;
+}
+
+.perspective {
+    perspective: 1500px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.rotate-y-180 {
+    transform: rotateY(-180deg);
+}
+
+.writing-vertical {
+    writing-mode: vertical-rl;
+}
