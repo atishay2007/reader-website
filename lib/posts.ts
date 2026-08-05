@@ -10,6 +10,8 @@ export type Post = {
     date: string;
     content: string;
     author?: string | null;
+    category: string | null;
+
 };
 
 

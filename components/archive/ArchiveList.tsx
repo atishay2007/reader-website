@@ -1,33 +1,44 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
+
 export default function ArchiveSelector({
-  years,
-  selectedYear,
-  onChange,
+    years,
+    selectedYear,
 }: {
-  years: number[];
-  selectedYear: number;
-  onChange: (year: number) => void;
+    years: number[];
+    selectedYear: number;
 }) {
-  return (
-    <select
-      value={selectedYear}
-      onChange={(e) => onChange(Number(e.target.value))}
-      className="
-        rounded-lg
-        border
-        border-[var(--border)]
-        bg-[var(--background)]
-        px-6
-        py-3
-        text-lg
-      "
-    >
-      {years.map((year) => (
-        <option key={year} value={year}>
-          {year}
-        </option>
-      ))}
-    </select>
-  );
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    function changeYear(year: number) {
+        const params = new URLSearchParams(searchParams.toString());
+
+        params.set("year", String(year));
+
+        router.push(`/archive?${params.toString()}`);
+    }
+
+    return (
+        <select
+            value={selectedYear}
+            onChange={(e) => changeYear(Number(e.target.value))}
+            className="
+                rounded-lg
+                border
+                border-[var(--border)]
+                bg-[var(--paper)]
+                px-6
+                py-3
+                text-lg
+            "
+        >
+            {years.map((year) => (
+                <option key={year} value={year}>
+                    {year}
+                </option>
+            ))}
+        </select>
+    );
 }
