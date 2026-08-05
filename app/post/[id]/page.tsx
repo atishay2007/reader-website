@@ -9,6 +9,7 @@ export async function generateMetadata({
     const { id } = await params;
 
     const post = await getPostById(id);
+
     if (!post) {
         return {};
     }
@@ -48,29 +49,64 @@ export default async function PostPage({
     const post = await getPostById(id);
 
     if (!post) {
-        notFound();
+        return notFound();
     }
 
     return (
-        <article className="mx-auto max-w-4xl px-6 py-20">
+        <article className="mx-auto max-w-3xl px-6 py-24">
 
-            <header className="mb-12 text-center">
+            <header className="mb-16 text-center">
+
+                <p
+                    className="
+                    mb-6
+                    font-[var(--font-hindi)]
+                    text-sm
+                    tracking-[0.25em]
+                    text-[var(--accent)]
+                    "
+                >
+                    श्री देशना संग्रह
+                </p>
+
 
                 <h1
                     className="
-            font-[var(--font-hindi)]
-            text-4xl
-            font-semibold
-            leading-relaxed
-            text-[var(--foreground)]
-            md:text-5xl
-          "
+                    font-[var(--font-hindi)]
+                    text-4xl
+                    font-semibold
+                    leading-relaxed
+                    text-[var(--foreground)]
+                    md:text-6xl
+                    "
                 >
                     {post.title}
                 </h1>
 
 
-                <p className="mt-6 text-sm text-[var(--accent)]">
+                <p
+                    className="
+                    mt-8
+                    font-[var(--font-hindi)]
+                    text-sm
+                    text-[var(--muted)]
+                    "
+                >
+                    {new Date(post.date).toLocaleDateString("hi-IN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                    })}
+
+                </p>
+                <p
+                    className="
+    mt-8
+    font-[var(--font-hindi)]
+    text-sm
+    text-[var(--muted)]
+    "
+                >
                     {new Date(post.date).toLocaleDateString("hi-IN", {
                         day: "numeric",
                         month: "long",
@@ -78,30 +114,58 @@ export default async function PostPage({
                     })}
                 </p>
 
+                {post.author && (
+                    <p
+                        className="
+        mt-3
+        text-sm
+        text-[var(--accent)]
+        "
+                    >
+                        लेखक: {post.author}
+                    </p>
+                )}
 
-                <div className="mx-auto mt-8 h-px w-24 bg-[var(--accent)]" />
+
+                <div
+                    className="
+                    mx-auto
+                    mt-10
+                    text-[var(--gold)]
+                    "
+                >
+                    ───── ✦ ─────
+                </div>
 
             </header>
 
 
             <div
                 className="
-          mx-auto
-          max-w-2xl
-          font-[var(--font-hindi)]
-          text-xl
-          font-normal
-          leading-[2]
-          text-[var(--foreground)]
+                rounded-sm
+                border
+                border-[var(--border)]
+                bg-[var(--paper)]
 
-          [&_p]:mb-2
+                px-8
+                py-12
 
-          [&_img]:mx-auto
-          [&_img]:my-10
-          [&_img]:rounded-lg
+                md:px-14
+                md:py-16
 
-          [&_a]:text-[var(--accent)]
-        "
+                font-[var(--font-hindi)]
+                text-xl
+                leading-[2.2]
+                text-[var(--foreground)]
+
+                [&_p]:mb-5
+
+                [&_img]:mx-auto
+                [&_img]:my-12
+                [&_img]:rounded-sm
+
+                [&_a]:text-[var(--accent)]
+                "
                 dangerouslySetInnerHTML={{
                     __html: post.content,
                 }}

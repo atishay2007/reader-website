@@ -1,14 +1,29 @@
 @import "tailwindcss";
 
+@layer utilities {
+    .rotate-x-90 {
+        transform: rotateX(90deg);
+    }
+
+    .rotate-x-0 {
+        transform: rotateX(0deg);
+    }
+}
+
 :root {
-    --background: #eadcac;
+    --background: #f3ead3;
     --foreground: #2d261f;
 
-    --paper: #fffdf8;
-    --border: #ddd4c7;
+    --paper: #fffaf0;
+    --border: #d8cbb5;
 
-    --maroon: #8c2d2d;
-    --gold: #c68a2e;
+    --text: #2d261f;
+    --muted: #756b60;
+
+    --accent: #7d2b2b;
+    --accent-hover: #642222;
+
+    --gold: #b8862c;
 }
 
 * {
@@ -21,8 +36,14 @@ html {
 
 body {
     margin: 0;
-    background: var(--background);
+    background:
+        radial-gradient(circle at top,
+            rgba(255, 255, 255, 0.4),
+            transparent 40%),
+        var(--background);
+
     color: var(--foreground);
+
     font-family: var(--font-english), serif;
     line-height: 1.8;
 }
@@ -35,6 +56,7 @@ h5,
 h6 {
     font-family: var(--font-hindi), serif;
     font-weight: 600;
+    letter-spacing: 0.01em;
 }
 
 a {
@@ -49,17 +71,4 @@ img {
 
 button {
     cursor: pointer;
-}
-
-:root {
-    --background: #f1e9d2;
-    --paper: #fffdf8;
-
-    --text: #2d261f;
-    --muted: #6b625b;
-
-    --accent: #8c2d2d;
-    --accent-hover: #732323;
-
-    --border: #ddd4c7;
 }

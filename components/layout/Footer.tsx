@@ -1,11 +1,32 @@
 export default function Footer() {
-  return (
-    <footer className="border-t border-stone-300 bg-[#faf6ee]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 text-sm text-stone-600">
-        <p>© {new Date().getFullYear()} श्री देशना</p>
+    return (
+        <footer className="mt-20 border-t border-[var(--border)] bg-[var(--paper)]">
+            <div className="
+        mx-auto
+        max-w-5xl
+        px-6
+        py-10
+        text-center
+        font-[var(--font-hindi)]
+      ">
 
-        <p>Thoughtful Hindi Literature</p>
-      </div>
-    </footer>
-  );
+                <div className="mb-6 text-[var(--gold)]">
+                    ───── ✦ ─────
+                </div>
+
+                <p className="text-lg text-[var(--foreground)]">
+                    © {new Date().getFullYear()} श्री देशना
+                </p>
+
+                <p className="
+          mt-3
+          text-sm
+          text-[var(--muted)]
+        ">
+                    साहित्य, विचार और संस्कृति का एक संग्रह।
+                </p>
+
+            </div>
+        </footer>
+    );
 }

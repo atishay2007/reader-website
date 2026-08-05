@@ -7,19 +7,24 @@ export default async function LatestPosts() {
     return (
         <section
             id="latest"
-            className="mx-auto max-w-5xl px-6 py-20"
+            className="mx-auto max-w-5xl px-6 py-14"
         >
 
             <div className="mb-10 flex items-end justify-between">
 
-                <h2 className="
-          font-[var(--font-hindi)]
-          text-4xl
-          font-semibold
-        ">
+                <h2
+                    className="
+font-[var(--font-hindi)]
+text-4xl
+font-semibold
+"
+                >
                     नवीनतम लेख
                 </h2>
 
+                <p className="mt-2 text-sm text-[var(--muted)]">
+                    हमारे संग्रह से नवीनतम रचनाएँ
+                </p>
             </div>
 
 
@@ -35,13 +40,15 @@ export default async function LatestPosts() {
                         key={post.fileId}
                         href={`/post/${post.fileId}`}
                         className="
-              border
-              border-[var(--border)]
-              p-8
-              transition
-              hover:-translate-y-1
-              hover:border-[var(--accent)]
-            "
+border
+border-[var(--border)]
+bg-[var(--paper)]
+p-8
+transition
+duration-300
+hover:-translate-y-1
+hover:border-[var(--accent)]
+"
                     >
 
                         <h3 className="
@@ -52,12 +59,17 @@ export default async function LatestPosts() {
             ">
                             {post.title}
                         </h3>
+                        {post.author && (
+    <p className="mt-2 text-sm text-[var(--accent)]">
+        लेखक: {post.author}
+    </p>
+)}
 
 
                         <p className="
               mt-3
-              text-sm
-              text-[var(--muted)]
+            text-sm
+text-[var(--accent)]
             ">
                             {new Date(post.date).toLocaleDateString("hi-IN")}
                         </p>
@@ -77,11 +89,17 @@ export default async function LatestPosts() {
                         </p>
 
 
-                        <p className="
-              mt-6
-              text-sm
-              text-[var(--accent)]
-            ">
+                        <p
+                            className="
+mt-8
+border-b
+border-[var(--accent)]
+inline-block
+pb-1
+text-sm
+text-[var(--accent)]
+"
+                        >
                             पढ़ें →
                         </p>
 
@@ -89,6 +107,9 @@ export default async function LatestPosts() {
 
                 ))}
 
+            </div>
+            <div className="mt-6 text-center text-[var(--gold)]">
+                ───── ✦ ─────
             </div>
 
 
@@ -112,6 +133,7 @@ export default async function LatestPosts() {
                 </Link>
 
             </div>
+
 
         </section>
     );

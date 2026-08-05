@@ -1,4 +1,5 @@
 "use client";
+
 import PostEditor from "@/components/editor/PostEditor";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -8,6 +9,7 @@ export default function NewPostForm() {
     const router = useRouter();
 
     const [title, setTitle] = useState("");
+    const [author, setAuthor] = useState("नीलम जैन");
     const [content, setContent] = useState("");
 
     async function publish() {
@@ -19,7 +21,7 @@ export default function NewPostForm() {
                 title,
                 content,
                 date: new Date().toISOString(),
-                author: "Neelam Jain",
+                author,
             });
 
         if (error) {
@@ -34,25 +36,49 @@ export default function NewPostForm() {
         <div className="mt-10 space-y-6">
 
             <input
-                className="w-full border p-4"
+                className="
+                w-full
+                border
+                border-[var(--border)]
+                bg-[var(--paper)]
+                p-4
+                "
                 placeholder="शीर्षक"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
+
+
+            <input
+                className="
+                w-full
+                border
+                border-[var(--border)]
+                bg-[var(--paper)]
+                p-4
+                "
+                placeholder="लेखक"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+            />
+
 
             <PostEditor
                 content={content}
                 setContent={setContent}
             />
 
+
             <button
                 onClick={publish}
                 className="
-          bg-black
-          px-8
-          py-3
-          text-white
-        "
+                bg-[var(--accent)]
+                px-8
+                py-3
+                text-white
+                transition
+                hover:bg-[var(--accent-hover)]
+                "
             >
                 प्रकाशित करें
             </button>

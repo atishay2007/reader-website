@@ -10,51 +10,72 @@ const links = [
 
 export default function Header() {
     return (
-        <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--background)]/95 backdrop-blur">
-            <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6">
+        <header className="
+            border-b
+            border-[var(--border)]
+            bg-[var(--paper)]
+        ">
+            <div className="
+                mx-auto
+                max-w-6xl
+                px-6
+                py-8
+            ">
 
-                <Link href="/" className="flex items-center">
-                    <Image
-                        src="/logo/logo.png"
-                        alt="श्री देशना"
-                        width={870}
-                        height={255}
-                        priority
-                        className="h-auto w-72" />
-                </Link>
+                <div className="flex justify-center">
+                    <Link href="/">
+                        <Image
+                            src="/logo/logo.png"
+                            alt="श्री देशना"
+                            width={870}
+                            height={255}
+                            priority
+                            className="w-80"
+                        />
+                    </Link>
+                </div>
 
-                <nav className="hidden items-center gap-6 md:flex">
+
+                <div className="
+                    my-6
+                    text-center
+                    text-[var(--gold)]
+                ">
+                    ───── ✦ ─────
+                </div>
+
+
+                <nav className="
+                    flex
+                    items-center
+                    justify-center
+                    gap-8
+                    font-[var(--font-hindi)]
+                    text-sm
+                ">
                     {links.map((link) => (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className="transition-colors hover:text-[var(--accent)]"
+                            className="
+                                transition-colors
+                                hover:text-[var(--accent)]
+                            "
                         >
                             {link.label}
                         </Link>
                     ))}
+
+                    <Link
+                        href="/admin"
+                        className="
+                            text-[var(--muted)]
+                            hover:text-[var(--accent)]
+                        "
+                    >
+                        Admin
+                    </Link>
                 </nav>
-
-                <Link href="/about">
-                    <Image
-                        src="/logo/emblem.png"
-                        alt="Foundation emblem"
-                        width={56}
-                        height={56}
-                        className="h-20 w-20"
-                    />
-
-                </Link>
-                <Link
-                    href="/admin"
-                    className="
-    text-sm
-    text-[var(--muted)]
-    hover:text-[var(--accent)]
-  "
-                >
-                    Admin Login
-                </Link>
 
             </div>
         </header>
