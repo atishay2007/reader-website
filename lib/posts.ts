@@ -1,17 +1,14 @@
 import { supabase } from "@/lib/supabase";
 import { unstable_noStore as noStore } from "next/cache";
 
-
 export type Post = {
     id: number;
-    fileId: string;
     title: string;
-    slug: string | null;
-    date: string;
     content: string;
-    author?: string | null;
+    author: string | null;
     category: string | null;
-
+    date: string;
+    fileId: string;
 };
 
 

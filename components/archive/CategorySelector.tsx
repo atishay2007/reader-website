@@ -29,22 +29,22 @@ export default function CategorySelector({
                         key={category}
                         href={
                             category === "सभी"
-                                ? "/archive"
-                                : `/archive?category=${category}`
+                                ? "/articles"
+                                : `/articles?category=${category}`
                         }
                         className={`
-                            rounded-full
-                            border
-                            px-5
-                            py-2
-                            text-sm
-                            transition
+        rounded-full
+        border
+        px-5
+        py-2
+        text-sm
+        transition
 
-                            ${active
+        ${active
                                 ? "border-[var(--accent)] bg-[var(--accent)] text-white"
                                 : "border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
                             }
-                        `}
+    `}
                     >
                         {category}
                     </Link>

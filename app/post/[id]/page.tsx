@@ -62,7 +62,7 @@ export default async function PostPage({
                     mb-6
                     font-[var(--font-hindi)]
                     text-sm
-                    tracking-[0.25em]
+tracking-normal
                     text-[var(--accent)]
                     "
                 >
@@ -99,20 +99,7 @@ export default async function PostPage({
                     })}
 
                 </p>
-                <p
-                    className="
-    mt-8
-    font-[var(--font-hindi)]
-    text-sm
-    text-[var(--muted)]
-    "
-                >
-                    {new Date(post.date).toLocaleDateString("hi-IN", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                    })}
-                </p>
+
 
                 {post.author && (
                     <p

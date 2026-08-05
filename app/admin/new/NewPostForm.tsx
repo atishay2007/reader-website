@@ -11,6 +11,7 @@ const categories = [
     "विचार",
     "अध्यात्म",
     "कविता",
+    "Editorial",
 ];
 
 export default function NewPostForm() {

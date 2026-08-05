@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-
 const links = [
     { href: "/", label: "Home" },
     { href: "/articles", label: "Articles" },
+    { href: "/editorial", label: "Editorial" },
+    { href: "/archive", label: "Archive" },
     { href: "/about", label: "About" },
     { href: "/search", label: "Search" },
 ];
@@ -18,8 +19,7 @@ export default function Header() {
             <div className="
                 mx-auto
                 max-w-6xl
-                px-6
-                py-8
+                py-5
             ">
 
                 <div className="flex justify-center">
@@ -30,17 +30,17 @@ export default function Header() {
                             width={870}
                             height={255}
                             priority
-                            className="w-80"
+className="w-64"
                         />
                     </Link>
                 </div>
 
 
                 <div className="
-                    my-6
-                    text-center
-                    text-[var(--gold)]
-                ">
+    my-3
+    text-center
+    text-[var(--gold)]
+">
                     ───── ✦ ─────
                 </div>
 
@@ -49,7 +49,7 @@ export default function Header() {
                     flex
                     items-center
                     justify-center
-                    gap-8
+                    gap-6
                     font-[var(--font-hindi)]
                     text-sm
                 ">
@@ -65,16 +65,6 @@ export default function Header() {
                             {link.label}
                         </Link>
                     ))}
-
-                    <Link
-                        href="/admin"
-                        className="
-                            text-[var(--muted)]
-                            hover:text-[var(--accent)]
-                        "
-                    >
-                        Admin
-                    </Link>
                 </nav>
 
             </div>

@@ -1,11 +1,13 @@
 export const issues = [
     {
-        id: "feb-2026",
-        title: "फरवरी 2026",
+        id: "dec-2021",
+        title: "December 2021",
         description: "श्री देशना मासिक पत्रिका",
-        year: 2026,
-        cover: "/archive/feb-2026.jpg",
-        pdf: "#",
+        year: 2021,
+
+        cover: "https://losvwqdyeshnyfxyxwuk.supabase.co/storage/v1/object/public/archive/covers/Dec2021.png",
+
+        pdf: "https://losvwqdyeshnyfxyxwuk.supabase.co/storage/v1/object/public/archive/pdfs/ShreedeshnaDec2021.pdf"
     },
     {
         id: "jan-2026",
@@ -15,4 +17,5 @@ export const issues = [
         cover: "/archive/jan-2026.jpg",
         pdf: "#",
     },
+
 ];

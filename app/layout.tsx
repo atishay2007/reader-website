@@ -10,10 +10,10 @@ const hindi = Noto_Serif_Devanagari({
     variable: "--font-hindi",
 });
 
-const english = Source_Serif_4({
-    subsets: ["latin"],
-    variable: "--font-english",
-});
+//const english = Source_Serif_4({
+//    subsets: ["latin"],
+//    variable: "--font-english",
+//});
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://shreedeshna.in"),
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="hi">
-            <body className={`${hindi.variable} flex min-h-screen flex-col`}>
+            <body className={`${hindi.variable} flex min-h-screen flex-col`}>                
                 <Header />
 
                 <main className="flex-1">

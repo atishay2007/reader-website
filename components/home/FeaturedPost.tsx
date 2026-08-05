@@ -21,18 +21,18 @@ export default async function FeaturedPost() {
                 md:px-16
                 "
             >
-
                 <p
                     className="
                     font-[var(--font-hindi)]
-                    text-sm
-                    tracking-[0.35em]
+                    text-xl
+                    font-semibold
+                    tracking-normal
                     text-[var(--accent)]
+                    mb-6
                     "
                 >
                     प्रमुख लेख
                 </p>
-
 
                 <div className="mt-6 text-[var(--gold)]">
                     ───── ✦ ─────

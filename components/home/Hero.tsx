@@ -2,8 +2,7 @@ import RotatingWord from "@/components/home/RotatingWord";
 
 export default function Hero() {
     return (
-        <section className="border-b border-[var(--border)] px-6 py-24 text-center">
-
+<section className="border-b border-[var(--border)] px-6 py-14 text-center">
             <div className="mx-auto max-w-5xl">
 
                 <h1
@@ -20,14 +19,14 @@ export default function Hero() {
                     <RotatingWord />
                 </h1>
 
-                <p className="mt-6 text-lg text-[var(--muted)]">
+                <p className="mt-4 text-lg text-[var(--muted)]">
                     पीढ़ियों से चली आ रही हिंदी रचनाओं का डिजिटल संग्रह।
                 </p>
 
                 <a
                     href="#latest"
                     className="
-                    mt-10
+mt-8
                     inline-block
                     border
                     border-[var(--accent)]

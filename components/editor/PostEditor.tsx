@@ -6,6 +6,7 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import Image from "@tiptap/extension-image";
 import { Extension } from "@tiptap/core";
 import { createClient } from "@/lib/supabase/client";
+import type { ChainedCommands } from "@tiptap/react";
 
 const FontSize = Extension.create({
     name: "fontSize",
@@ -40,7 +41,7 @@ const FontSize = Extension.create({
         return {
             setFontSize:
                 (fontSize: string) =>
-                    ({ chain }: any) => {
+                    ({ chain }: { chain: () => ChainedCommands }) => {
                         return chain()
                             .setMark("textStyle", {
                                 fontSize,
