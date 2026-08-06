@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Serif_Devanagari, Source_Serif_4 } from "next/font/google";
+import { Noto_Serif_Devanagari } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -11,21 +11,37 @@ const hindi = Noto_Serif_Devanagari({
     variable: "--font-hindi",
 });
 
-//const english = Source_Serif_4({
-//    subsets: ["latin"],
-//    variable: "--font-english",
-//});
-
 export const metadata: Metadata = {
     metadataBase: new URL("https://shreedeshna.in"),
+
     title: {
-        default: "श्री देशना",
+        default: "श्री देशना | हिंदी साहित्य एवं संस्कृति संग्रह",
         template: "%s | श्री देशना",
     },
-    description:
-        "हिंदी साहित्य, विचार और संस्कृति का डिजिटल संग्रह।",
-};
 
+    description:
+        "श्री देशना हिंदी साहित्य, जैन दर्शन, संस्कृति, विचार और आध्यात्मिक लेखों का डिजिटल संग्रह है।",
+
+    keywords: [
+        "श्री देशना",
+        "हिंदी साहित्य",
+        "जैन साहित्य",
+        "जैन दर्शन",
+        "संस्कृति",
+        "आध्यात्म",
+        "हिंदी लेख",
+    ],
+
+    openGraph: {
+        title: "श्री देशना",
+        description:
+            "हिंदी साहित्य, विचार और संस्कृति का डिजिटल संग्रह।",
+        url: "https://shreedeshna.in",
+        siteName: "श्री देशना",
+        locale: "hi_IN",
+        type: "website",
+    },
+};
 
 export default function RootLayout({
     children,

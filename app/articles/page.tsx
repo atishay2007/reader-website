@@ -110,7 +110,40 @@ export default async function ArchivePage({
         Math.ceil(
             filteredPosts.length / pageSize
         );
+    const paginationPages = [];
 
+if (totalPages <= 5) {
+
+    for (let i = 1; i <= totalPages; i++) {
+        paginationPages.push(i);
+    }
+
+} else {
+
+    paginationPages.push(1);
+
+    if (currentPage > 3) {
+        paginationPages.push("...");
+    }
+
+
+    for (
+        let i = Math.max(2, currentPage - 1);
+        i <= Math.min(totalPages - 1, currentPage + 1);
+        i++
+    ) {
+        paginationPages.push(i);
+    }
+
+
+    if (currentPage < totalPages - 2) {
+        paginationPages.push("...");
+    }
+
+
+    paginationPages.push(totalPages);
+
+}
 
 
 
@@ -388,19 +421,26 @@ export default async function ArchivePage({
                 </div>
 
                 <div
-                    className="
+    className="
     mt-12
     flex
     items-center
     justify-center
     gap-6
     "
-                >
-
-                    {currentPage > 1 && (
-                        <Link
-                            href={`/articles?year=${selectedYear}&page=${currentPage - 1}`}
-                            className="
+>
+    {currentPage > 1 && (
+        <Link
+            href={`/articles?year=${selectedYear}&page=${currentPage - 1}${
+                selectedCategory
+                    ? `&category=${selectedCategory}`
+                    : ""
+            }${
+                search
+                    ? `&search=${search}`
+                    : ""
+            }`}
+            className="
             rounded-md
             border
             border-[var(--border)]
@@ -408,27 +448,36 @@ export default async function ArchivePage({
             py-2
             transition
             hover:border-[var(--gold)]
+            hover:text-[var(--gold)]
             "
-                        >
-                            ← पिछला
-                        </Link>
-                    )}
+        >
+            ← पिछला
+        </Link>
+    )}
 
 
-                    <span
-                        className="
+    <span
+        className="
         text-sm
         text-[var(--muted)]
         "
-                    >
-                        {currentPage} / {totalPages}
-                    </span>
+    >
+        {currentPage} / {totalPages}
+    </span>
 
 
-                    {currentPage < totalPages && (
-                        <Link
-                            href={`/articles?year=${selectedYear}&page=${currentPage + 1}`}
-                            className="
+    {currentPage < totalPages && (
+        <Link
+            href={`/articles?year=${selectedYear}&page=${currentPage + 1}${
+                selectedCategory
+                    ? `&category=${selectedCategory}`
+                    : ""
+            }${
+                search
+                    ? `&search=${search}`
+                    : ""
+            }`}
+            className="
             rounded-md
             border
             border-[var(--border)]
@@ -436,14 +485,13 @@ export default async function ArchivePage({
             py-2
             transition
             hover:border-[var(--gold)]
+            hover:text-[var(--gold)]
             "
-                        >
-                            अगला →
-                        </Link>
-                    )}
-
-                </div>
-
+        >
+            अगला →
+        </Link>
+    )}
+</div>
 
             </section>
 

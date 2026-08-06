@@ -4,6 +4,7 @@ import { getAllPosts } from "@/lib/posts";
 const BASE_URL = "https://shreedeshna.in";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+
     const posts = await getAllPosts();
 
     return [
@@ -11,12 +12,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             url: BASE_URL,
             lastModified: new Date(),
         },
+
         {
-            url: `${BASE_URL}/archive`,
+            url: `${BASE_URL}/articles`,
             lastModified: new Date(),
         },
+
         {
-            url: `${BASE_URL}/about`,
+            url: `${BASE_URL}/dr-neelam-jain`,
+            lastModified: new Date(),
+        },
+
+        {
+            url: `${BASE_URL}/gallery`,
             lastModified: new Date(),
         },
 

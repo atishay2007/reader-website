@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getPostById, getAllPosts } from "@/lib/posts";
 import Link from "next/link";
+import Comments from "@/components/comments/Comments";
 
 export async function generateMetadata({
     params,
@@ -270,96 +271,9 @@ export default async function PostPage({
 
                 )
             }
-            <section
-                className="
-    mt-20
-    border-t
-    border-[var(--border)]
-    pt-12
-    "
-            >
-
-                <h2
-                    className="
-    font-[var(--font-hindi)]
-    text-3xl
-    font-semibold
-    "
-                >
-                    टिप्पणियाँ
-                </h2>
 
 
-                <form
-                    className="
-    mt-8
-    space-y-5
-    "
-                >
-
-
-                    <input
-                        placeholder="आपका नाम"
-                        className="
-    w-full
-    rounded-md
-    border
-    border-[var(--border)]
-    bg-[var(--paper)]
-    px-5
-    py-3
-    outline-none
-    transition-all
-    duration-500
-    focus:w-[90%]
-    focus:border-[var(--gold)]
-    "
-                    />
-
-
-
-                    <textarea
-                        placeholder="अपनी टिप्पणी लिखें..."
-                        className="
-    min-h-[120px]
-    w-full
-    resize-none
-    rounded-md
-    border
-    border-[var(--border)]
-    bg-[var(--paper)]
-    px-5
-    py-4
-    outline-none
-    transition-all
-    duration-300
-    focus:min-h-[200px]
-    focus:border-[var(--gold)]
-    "
-                    />
-
-
-                    <button
-                        className="
-    rounded-md
-    border
-    border-[var(--gold)]
-    px-6
-    py-3
-    text-sm
-    transition
-    hover:bg-[var(--gold)]
-    hover:text-black
-    "
-                    >
-                        टिप्पणी भेजें
-                    </button>
-
-
-                </form>
-
-
-            </section>
+            <Comments postId={id} />
 
         </article>
     );
