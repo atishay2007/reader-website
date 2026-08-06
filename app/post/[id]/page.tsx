@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { getPostById } from "@/lib/posts";
+import { getPostById, getAllPosts } from "@/lib/posts";
+import Link from "next/link";
 
 export async function generateMetadata({
     params,
@@ -52,19 +53,44 @@ export default async function PostPage({
         return notFound();
     }
 
+    const allPosts = await getAllPosts();
+
+    const currentIndex = allPosts.findIndex(
+        (item) => item.fileId === id
+    );
+
+    const nextPost =
+        currentIndex >= 0 &&
+            currentIndex < allPosts.length - 1
+            ? allPosts[currentIndex + 1]
+            : null;
+
     return (
-        <article className="mx-auto max-w-3xl px-6 py-24">
+        <article className="mx-auto max-w-4xl px-6 py-12">
+            <Link
+                href="/articles"
+                className="
+            mb-12
+            inline-flex
+            items-center
+            text-sm
+            text-[var(--muted)]
+            transition
+            hover:text-[var(--gold)]
+            "
+            >
+                ← सभी लेख
+            </Link>
 
-            <header className="mb-16 text-center">
-
+            <header className="mb-8 text-center">
                 <p
                     className="
-                    mb-6
-                    font-[var(--font-hindi)]
-                    text-sm
-tracking-normal
-                    text-[var(--accent)]
-                    "
+    mb-3
+    font-[var(--font-hindi)]
+    text-sm
+    tracking-wide
+    text-[var(--accent)]
+    "
                 >
                     श्री देशना संग्रह
                 </p>
@@ -72,25 +98,26 @@ tracking-normal
 
                 <h1
                     className="
-                    font-[var(--font-hindi)]
-                    text-4xl
-                    font-semibold
-                    leading-relaxed
-                    text-[var(--foreground)]
-                    md:text-6xl
-                    "
+    mx-auto
+    max-w-4xl
+    font-[var(--font-hindi)]
+    text-3xl
+    font-semibold
+    leading-[1.5]
+    text-[var(--foreground)]
+    md:text-5xl
+    "
                 >
                     {post.title}
                 </h1>
 
-
                 <p
                     className="
-                    mt-8
-                    font-[var(--font-hindi)]
-                    text-sm
-                    text-[var(--muted)]
-                    "
+    mt-4
+    font-[var(--font-hindi)]
+    text-sm
+    text-[#7b2d3a]
+    "
                 >
                     {new Date(post.date).toLocaleDateString("hi-IN", {
                         day: "numeric",
@@ -104,10 +131,11 @@ tracking-normal
                 {post.author && (
                     <p
                         className="
-        mt-3
-        text-sm
-        text-[var(--accent)]
-        "
+    mt-4
+    font-[var(--font-hindi)]
+    text-sm
+    !text-[#7b2d3a]
+    "
                     >
                         लेखक: {post.author}
                     </p>
@@ -157,6 +185,181 @@ tracking-normal
                     __html: post.content,
                 }}
             />
+            {
+                nextPost && (
+
+                    <div
+                        className="
+            mt-20
+            border-t
+            border-[var(--border)]
+            pt-12
+            "
+                    >
+
+                        <Link
+                            href={`/post/${nextPost.fileId}`}
+                            className="
+                group
+                block
+                "
+                        >
+
+                            <p
+                                className="
+    mb-4
+    font-[var(--font-hindi)]
+    text-xl
+    tracking-wide
+    font-semibold
+    text-[#7b2d3a]
+    "
+                            >
+                                अगला लेख पढ़ें
+                            </p>
+
+
+                            <div
+                                className="
+                    flex
+                    items-center
+                    justify-between
+                    rounded-sm
+                    border
+                    border-[var(--border)]
+                    bg-[var(--paper)]
+                    px-8
+                    py-6
+                    transition-all
+                    duration-300
+                    group-hover:border-[var(--gold)]
+                    group-hover:-translate-y-1
+                    "
+                            >
+
+                                <h3
+                                    className="
+                        max-w-xl
+                        font-[var(--font-hindi)]
+                        text-xl
+                        font-semibold
+                        "
+                                >
+                                    {nextPost.title}
+                                </h3>
+
+
+                                <span
+                                    className="
+                        text-2xl
+                        text-[var(--gold)]
+                        transition-transform
+                        group-hover:translate-x-2
+                        "
+                                >
+                                    →
+                                </span>
+
+
+                            </div>
+
+                        </Link>
+
+
+                    </div>
+
+                )
+            }
+            <section
+                className="
+    mt-20
+    border-t
+    border-[var(--border)]
+    pt-12
+    "
+            >
+
+                <h2
+                    className="
+    font-[var(--font-hindi)]
+    text-3xl
+    font-semibold
+    "
+                >
+                    टिप्पणियाँ
+                </h2>
+
+
+                <form
+                    className="
+    mt-8
+    space-y-5
+    "
+                >
+
+
+                    <input
+                        placeholder="आपका नाम"
+                        className="
+    w-full
+    rounded-md
+    border
+    border-[var(--border)]
+    bg-[var(--paper)]
+    px-5
+    py-3
+    outline-none
+    transition-all
+    duration-500
+    focus:w-[90%]
+    focus:border-[var(--gold)]
+    "
+                    />
+
+
+
+                    <textarea
+                        placeholder="अपनी टिप्पणी लिखें..."
+                        className="
+    min-h-[120px]
+    w-full
+    resize-none
+    rounded-md
+    border
+    border-[var(--border)]
+    bg-[var(--paper)]
+    px-5
+    py-4
+    outline-none
+    transition-all
+    duration-300
+    focus:min-h-[200px]
+    focus:border-[var(--gold)]
+    "
+                    />
+
+
+                    <button
+                        className="
+    rounded-md
+    border
+    border-[var(--gold)]
+    px-6
+    py-3
+    text-sm
+    transition
+    hover:bg-[var(--gold)]
+    hover:text-black
+    "
+                    >
+                        टिप्पणी भेजें
+                    </button>
+
+
+                </form>
+
+
+            </section>
 
         </article>
     );

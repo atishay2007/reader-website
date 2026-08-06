@@ -5,8 +5,8 @@ const links = [
     { href: "/articles", label: "Articles" },
     { href: "/editorial", label: "Editorial" },
     { href: "/archive", label: "Archive" },
-    { href: "/about", label: "About" },
-    { href: "/search", label: "Search" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/dr-neelam-jain", label: "About Me" },
 ];
 
 export default function Header() {

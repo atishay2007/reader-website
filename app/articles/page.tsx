@@ -3,19 +3,31 @@ import Link from "next/link";
 import ArchiveSelector from "@/components/archive/ArchiveList";
 import CategorySelector from "@/components/archive/CategorySelector";
 
+
 export default async function ArchivePage({
     searchParams,
 }: {
     searchParams: Promise<{
         year?: string;
         category?: string;
+        search?: string;
+        page?: string;
     }>;
 }) {
+
+
     const posts = await getAllPosts();
 
+
     const years = Array.from(
-        new Set(posts.map((post) => new Date(post.date).getFullYear()))
+        new Set(
+            posts.map(
+                (post) =>
+                    new Date(post.date).getFullYear()
+            )
+        )
     ).sort((a, b) => b - a);
+
 
 
     const params = await searchParams;
@@ -26,30 +38,100 @@ export default async function ArchivePage({
         : years[0];
 
 
-    const selectedCategory = params.category;
+    const selectedCategory =
+        params.category;
 
 
-const filteredPosts = posts.filter((post) => {
-
-    const notEditorial = post.category !== "Editorial";
-
-    const matchesYear =
-        new Date(post.date).getFullYear() === selectedYear;
+    const search =
+        params.search || "";
 
 
-    const matchesCategory =
-        !selectedCategory ||
-        post.category === selectedCategory;
+
+    const pageSize = 10;
 
 
-    return notEditorial && matchesYear && matchesCategory;
-});
+
+
+    const filteredPosts = posts.filter((post) => {
+
+
+        const notEditorial =
+            post.category !== "Editorial";
+
+
+
+        const matchesYear =
+            new Date(post.date).getFullYear() === selectedYear;
+
+
+
+        const matchesCategory =
+            !selectedCategory ||
+            post.category === selectedCategory;
+
+
+
+        const matchesSearch =
+            post.title
+                .toLowerCase()
+                .includes(
+                    search.toLowerCase()
+                );
+
+
+
+        return (
+            notEditorial &&
+            matchesYear &&
+            matchesCategory &&
+            matchesSearch
+        );
+
+
+    });
+    const currentPage =
+        params.page
+            ? Number(params.page)
+            : 1;
+
+
+    const start =
+        (currentPage - 1) * pageSize;
+
+
+    const paginatedPosts =
+        filteredPosts.slice(
+            start,
+            start + pageSize
+        );
+
+
+    const totalPages =
+        Math.ceil(
+            filteredPosts.length / pageSize
+        );
+
+
+
 
 
     return (
-        <main className="mx-auto max-w-5xl px-6 py-20">
 
-            <header className="mb-16 text-center">
+        <main
+            className="
+            mx-auto
+            max-w-5xl
+            px-6
+            py-20
+            "
+        >
+
+            <header
+                className="
+                mb-8
+                text-center
+                "
+            >
 
                 <h1
                     className="
@@ -61,29 +143,123 @@ const filteredPosts = posts.filter((post) => {
                     श्री देशना संग्रह
                 </h1>
 
-                <p className="mt-4 text-lg text-[var(--muted)]">
+
+                <p
+                    className="
+                    mt-4
+                    text-lg
+                    text-[var(--muted)]
+                    "
+                >
                     {posts.length} लेख
                 </p>
+
 
             </header>
 
 
-            <div className="mb-8">
+
+            <div className="mb-5">
+
                 <CategorySelector
                     selectedCategory={selectedCategory}
                 />
+
             </div>
 
 
-            <div className="mb-14 flex justify-center">
+
+
+            <div
+                className="
+    mb-8
+    flex
+    flex-col
+    gap-3
+    sm:flex-row
+    sm:justify-center
+    "
+            >
+
+                <form
+                    className="
+    relative
+    group
+    "
+                >
+
+                    <input
+                        name="search"
+                        defaultValue={search}
+                        placeholder="लेख खोजें..."
+                        className="
+        w-[280px]
+        sm:w-[320px]
+        rounded-md
+        border
+        border-[var(--border)]
+        bg-[var(--paper)]
+        py-3
+        pl-12
+        pr-6
+        outline-none
+        transition-all
+        duration-500
+        focus:w-[420px]
+        focus:border-[var(--gold)]
+        focus:shadow-[0_0_20px_rgba(184,134,44,0.15)]
+        placeholder:text-[var(--muted)]
+        "
+                    />
+
+
+                    <input
+                        type="hidden"
+                        name="year"
+                        value={selectedYear}
+                    />
+
+                    <input
+                        type="hidden"
+                        name="category"
+                        value={selectedCategory ?? ""}
+                    />
+
+
+                    <span
+                        className="
+        pointer-events-none
+        absolute
+        left-4
+        top-1/2
+        -translate-y-1/2
+        text-[var(--muted)]
+        transition-all
+        duration-300
+        group-focus-within:text-[var(--gold)]
+        "
+                    >
+                        🔍
+                    </span>
+
+                </form>
+
+
+
                 <ArchiveSelector
                     years={years}
                     selectedYear={selectedYear}
                 />
+
+
             </div>
 
 
+
+
+
             <section>
+
 
                 <div
                     className="
@@ -107,17 +283,27 @@ const filteredPosts = posts.filter((post) => {
                         {selectedYear}
                     </h2>
 
-                    <span className="text-sm text-[var(--muted)]">
+
+
+                    <span
+                        className="
+                        text-sm
+                        text-[var(--muted)]
+                        "
+                    >
                         {filteredPosts.length} लेख
                     </span>
+
 
                 </div>
 
 
+
+
+
                 <div className="mt-6">
 
-                    {filteredPosts.map((post) => (
-
+                    {paginatedPosts.map((post) => (
                         <Link
                             key={post.fileId}
                             href={`/post/${post.fileId}`}
@@ -132,6 +318,7 @@ const filteredPosts = posts.filter((post) => {
                             "
                         >
 
+
                             <h3
                                 className="
                                 font-[var(--font-hindi)]
@@ -143,39 +330,126 @@ const filteredPosts = posts.filter((post) => {
                             </h3>
 
 
-                            <div className="mt-3 flex gap-4 text-sm text-[var(--muted)]">
+
+                            <div
+                                className="
+                                mt-3
+                                flex
+                                gap-4
+                                text-sm
+                                text-[var(--muted)]
+                                "
+                            >
+
 
                                 <span>
-                                    {new Date(post.date).toLocaleDateString("hi-IN", {
-                                        day: "numeric",
-                                        month: "long",
-                                        year: "numeric",
-                                    })}
+                                    {new Date(post.date)
+                                        .toLocaleDateString(
+                                            "hi-IN",
+                                            {
+                                                day: "numeric",
+                                                month: "long",
+                                                year: "numeric",
+                                            }
+                                        )}
                                 </span>
 
+
+
                                 {post.author && (
+
                                     <span>
                                         लेखक: {post.author}
                                     </span>
+
                                 )}
+
 
 
                                 {post.category && (
+
                                     <span>
                                         {post.category}
                                     </span>
+
                                 )}
+
+
 
                             </div>
 
+
                         </Link>
+
 
                     ))}
 
+
                 </div>
+
+                <div
+                    className="
+    mt-12
+    flex
+    items-center
+    justify-center
+    gap-6
+    "
+                >
+
+                    {currentPage > 1 && (
+                        <Link
+                            href={`/articles?year=${selectedYear}&page=${currentPage - 1}`}
+                            className="
+            rounded-md
+            border
+            border-[var(--border)]
+            px-5
+            py-2
+            transition
+            hover:border-[var(--gold)]
+            "
+                        >
+                            ← पिछला
+                        </Link>
+                    )}
+
+
+                    <span
+                        className="
+        text-sm
+        text-[var(--muted)]
+        "
+                    >
+                        {currentPage} / {totalPages}
+                    </span>
+
+
+                    {currentPage < totalPages && (
+                        <Link
+                            href={`/articles?year=${selectedYear}&page=${currentPage + 1}`}
+                            className="
+            rounded-md
+            border
+            border-[var(--border)]
+            px-5
+            py-2
+            transition
+            hover:border-[var(--gold)]
+            "
+                        >
+                            अगला →
+                        </Link>
+                    )}
+
+                </div>
+
 
             </section>
 
+
         </main>
+
     );
+
 }

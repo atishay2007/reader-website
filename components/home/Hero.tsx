@@ -2,22 +2,24 @@ import RotatingWord from "@/components/home/RotatingWord";
 
 export default function Hero() {
     return (
-<section className="border-b border-[var(--border)] px-6 py-14 text-center">
+        <section className="border-b border-[var(--border)] px-6 py-14 text-center">
             <div className="mx-auto max-w-5xl">
-
-                <h1
+                <p
                     className="
     font-[var(--font-hindi)]
-    text-3xl
-    font-semibold
+    text-4xl
+    font-bold
     leading-relaxed
-    md:text-6xl
+    text-[var(--foreground)]
+    md:text-7xl
     "
                 >
                     हर रचना को अवसर मिलना चाहिए{" "}
                     <br />
-                    <RotatingWord />
-                </h1>
+                    <span className="text-[var(--accent)]">
+                        <RotatingWord />
+                    </span>
+                </p>
 
                 <p className="mt-4 text-lg text-[var(--muted)]">
                     पीढ़ियों से चली आ रही हिंदी रचनाओं का डिजिटल संग्रह।
