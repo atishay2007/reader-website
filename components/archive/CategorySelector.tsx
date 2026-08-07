@@ -4,11 +4,11 @@ import Link from "next/link";
 
 const categories = [
     "सभी",
-    "साहित्य",
-    "संस्कृति",
-    "विचार",
-    "अध्यात्म",
+    "आलेख",
     "कविता",
+    "अध्यात्म",
+    "कहानी",
+    "समीक्षा",
 ];
 
 export default function CategorySelector({

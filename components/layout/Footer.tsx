@@ -6,8 +6,8 @@ const links = [
     { href: "/articles", label: "Articles" },
     { href: "/editorial", label: "Editorial" },
     { href: "/archive", label: "Archive" },
-    { href: "/about", label: "About" },
-    { href: "/search", label: "Search" },
+    { href: "/gallery", label: "Gallery" },
+    { href: "/dr-neelam-jain", label: "About Me" },
     { href: "/admin", label: "Admin" },
 ];
 
@@ -92,7 +92,7 @@ export default function Footer() {
                                 editor@shreedeshna.in
                             </p>
 
-                           
+
                         </div>
 
                     </div>
@@ -163,20 +163,35 @@ export default function Footer() {
                                     key={link.href}
                                     href={link.href}
                                     className="
-                                    block
-                                    text-sm
-                                    text-[var(--muted)]
-                                    transition
-                                    hover:text-[var(--accent)]
-                                    "
+            group
+            flex
+            items-center
+            gap-2
+            text-sm
+            text-[var(--muted)]
+            transition-all
+            duration-300
+            hover:text-[var(--gold)]
+            "
                                 >
+                                    <span
+                                        className="
+                h-px
+                w-0
+                bg-[var(--gold)]
+                transition-all
+                duration-300
+                group-hover:w-4
+                "
+                                    />
+
                                     {link.label}
+
                                 </Link>
 
                             ))}
 
                         </div>
-
                     </div>
 
 

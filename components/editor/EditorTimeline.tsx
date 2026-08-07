@@ -71,41 +71,61 @@ export default function EditorTimeline() {
             "
         >
 
-            <h2
+            <div
                 className="
-                mb-10
-                font-[var(--font-hindi)]
-                text-3xl
+                mb-12
+                flex
+                items-center
+                gap-3
                 "
             >
-                यात्रा
-            </h2>
+
+                <span
+                    className="
+                    h-px
+                    w-8
+                    bg-[var(--gold)]
+                    "
+                />
+
+                <h2
+                    className="
+                    font-[var(--font-hindi)]
+                    text-3xl
+                    font-semibold
+                    text-[var(--accent)]
+                    "
+                >
+                    यात्रा
+                </h2>
+
+            </div>
 
 
 
-            {/* Background line */}
+            {/* Base line */}
 
             <div
                 className="
                 absolute
-                left-[11px]
+                left-[8px]
                 top-20
                 h-[calc(100%-80px)]
-                w-[2px]
+                w-px
                 bg-[var(--border)]
                 "
             />
 
 
 
-            {/* Gold rising line */}
+            {/* Progress line */}
 
             <div
                 className="
                 absolute
-                left-[11px]
+                left-[8px]
                 top-20
-                w-[2px]
+                w-px
                 bg-gradient-to-b
                 from-[var(--gold)]
                 via-[#d8b46a]
@@ -125,7 +145,7 @@ export default function EditorTimeline() {
 
             <div
                 className="
-                space-y-14
+                space-y-16
                 "
             >
 
@@ -136,43 +156,43 @@ export default function EditorTimeline() {
                         className="
                         timeline-item
                         relative
-                        pl-10
+                        pl-8
                         "
                     >
 
 
-                        {/* Timeline dot */}
+                        {/* Dot */}
 
                         <div
                             className={`
                             absolute
-                            left-[-1px]
+                            left-0
                             top-1
-                            h-5
-                            w-5
+                            h-4
+                            w-4
                             rounded-full
                             border
                             transition-all
                             duration-500
 
                             ${index <= active
-                                    ? `
+                                    ?
+                                    `
                                     border-[var(--gold)]
                                     bg-[var(--gold)]
-                                    shadow-[0_0_18px_rgba(176,138,74,0.5)]
+                                    shadow-[0_0_12px_rgba(184,134,44,0.35)]
                                     scale-110
                                     `
-                                    : `
+                                    :
+                                    `
                                     border-[var(--border)]
-                                    bg-[var(--background)]
+                                    bg-[var(--paper)]
                                     `
                                 }
                             `}
                         />
 
 
-
-                        {/* Content */}
 
                         <div
                             className={`
@@ -181,7 +201,7 @@ export default function EditorTimeline() {
 
                             ${index <= active
                                     ? "opacity-100 translate-y-0"
-                                    : "opacity-40 translate-y-3"
+                                    : "opacity-50 translate-y-2"
                                 }
                             `}
                         >
@@ -190,14 +210,16 @@ export default function EditorTimeline() {
                             <h3
                                 className={`
                                 font-[var(--font-hindi)]
-                                text-2xl
+                                text-3xl
                                 font-semibold
                                 transition-colors
                                 duration-500
 
                                 ${index <= active
-                                        ? "text-[var(--accent)]"
-                                        : "text-[var(--muted)]"
+                                        ?
+                                        "text-[var(--accent)]"
+                                        :
+                                        "text-[var(--muted)]"
                                     }
                                 `}
                             >
@@ -208,9 +230,11 @@ export default function EditorTimeline() {
 
                             <p
                                 className="
-                                mt-1
+                                mt-2
+                                font-[var(--font-hindi)]
                                 text-base
                                 font-semibold
+                                text-[var(--foreground)]
                                 "
                             >
                                 {event.title}
@@ -220,9 +244,10 @@ export default function EditorTimeline() {
 
                             <div
                                 className="
-                                mt-2
-                                space-y-1
-                                text-xs
+                                mt-3
+                                space-y-2
+                                font-[var(--font-hindi)]
+                                text-sm
                                 leading-relaxed
                                 text-[var(--muted)]
                                 "

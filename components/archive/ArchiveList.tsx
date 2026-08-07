@@ -5,9 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 export default function ArchiveSelector({
     years,
     selectedYear,
+    basePath = "/articles",
 }: {
     years: number[];
     selectedYear: number;
+    basePath?: string;
 }) {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -17,7 +19,7 @@ export default function ArchiveSelector({
 
         params.set("year", String(year));
 
-        router.push(`/archive?${params.toString()}`);
+        router.push(`${basePath}?${params.toString()}`);
     }
 
     return (

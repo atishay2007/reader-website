@@ -10,17 +10,46 @@ export default async function FeaturedPost() {
     return (
         <section className="mx-auto max-w-5xl px-6 py-12">
 
-            <div
-                className="
-                border
-                border-[var(--border)]
-                bg-[var(--paper)]
-                px-8
-                py-14
-                text-center
-                md:px-16
-                "
-            >
+    <Link
+        href={`/post/${post.fileId}`}
+        className="
+        block
+        group
+        "
+    >
+
+    <div
+        className="
+        relative
+        overflow-hidden
+        border
+        border-[var(--border)]
+        bg-[var(--paper)]
+        px-8
+        py-14
+        text-center
+        transition-all
+        duration-500
+        hover:-translate-y-3
+        hover:border-[var(--gold)]
+        hover:shadow-[0_25px_70px_rgba(184,134,44,0.25)]
+        md:px-16
+        "
+    >
+                <div
+                    className="
+    pointer-events-none
+    absolute
+    inset-0
+    bg-gradient-to-br
+    from-[var(--gold)]/5
+    to-transparent
+    opacity-0
+    transition-opacity
+    duration-500
+    group-hover:opacity-100
+    "
+                />
                 <p
                     className="
                     font-[var(--font-hindi)]
@@ -92,23 +121,26 @@ export default async function FeaturedPost() {
                 </p>
 
 
-                <Link
-                    href={`/post/${post.fileId}`}
-                    className="
-                    mt-10
-                    inline-block
-                    border-b
-                    border-[var(--accent)]
-                    pb-1
-                    text-[var(--accent)]
-                    hover:text-[var(--accent-hover)]
-                    "
-                >
-                    पूरा लेख पढ़ें →
-                </Link>
+               <span
+    className="
+    mt-10
+    inline-block
+    border-b
+    border-[var(--accent)]
+    pb-1
+    text-[var(--accent)]
+    transition-all
+    duration-300
+    group-hover:text-[var(--gold)]
+    "
+>
+    पूरा लेख पढ़ें →
+</span>
 
-            </div>
+    </div>
 
-        </section>
+    </Link>
+
+</section>
     );
 }

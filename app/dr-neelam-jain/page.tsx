@@ -13,70 +13,99 @@ export default function EditorPage() {
 
             <section
                 className="
-    mx-auto
-    max-w-7xl
-    px-6
-    py-32
-    "
+                mx-auto
+                max-w-7xl
+                px-4
+                lg:px-8
+                py-20
+                "
             >
+
                 <div
                     className="
-    grid
-    gap-12
-lg:grid-cols-[1.3fr_2fr_0.9fr]
-    items-start
-    "
+                    grid
+                    items-start
+                    gap-0
+                    lg:grid-cols-[320px_minmax(0,1fr)_260px]
+                    "
                 >
 
-                    <aside
+
+                    {/* Books */}
+
+                    <div
                         className="
-    lg:sticky
-    lg:top-24
-    lg:self-start
-    "
+                        border-r
+                        border-[var(--border)]
+                        pr-10
+                        "
                     >
                         <EditorBooks />
-                    </aside>
+                    </div>
 
 
-                    <article>
+
+                    {/* Main Content */}
+
+                    <article
+                        id="journey"
+                        className="
+    px-10
+    "
+                    >
                         <EditorJourney />
+
+
                         <div className="h-12" />
+
 
                         <blockquote
                             className="
-    my-20
-    mx-auto
-    max-w-xl
-    text-center
-    font-[var(--font-hindi)]
-    text-3xl
-    font-semibold
-    leading-relaxed
-    text-[var(--accent)]
-    "
+                            my-20
+                            mx-auto
+                            max-w-xl
+                            text-center
+                            font-[var(--font-hindi)]
+                            text-3xl
+                            font-semibold
+                            leading-relaxed
+                            text-[var(--accent)]
+                            "
                         >
                             &ldquo;शब्द केवल लिखे नहीं जाते,
                             वे समय के साथ जीवित रहते हैं।&rdquo;
                         </blockquote>
+
                     </article>
+
+
+
+
+                    {/* Timeline */}
 
                     <aside
                         className="
-    lg:sticky
-    lg:top-24
-    lg:self-start
-    "
+                        border-l
+                        border-[var(--border)]
+                        pl-10
+                        lg:sticky
+                        lg:top-24
+                        lg:self-start
+                        "
                     >
                         <EditorTimeline />
+
                     </aside>
 
 
                 </div>
+
             </section>
 
 
+
             <EditorGallery />
+
 
         </main>
     );

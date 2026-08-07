@@ -6,12 +6,13 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 const categories = [
-    "साहित्य",
-    "संस्कृति",
-    "विचार",
-    "अध्यात्म",
+    "सभी",
+    "आलेख",
     "कविता",
-    "Editorial",
+    "अध्यात्म",
+    "कहानी",
+    "समीक्षा",
+    "Editorial"
 ];
 
 export default function NewPostForm() {

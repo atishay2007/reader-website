@@ -66,8 +66,8 @@ export default function EditorBooks() {
             <div
                 className="
                 grid
-                grid-cols-2
-                gap-6
+                grid-cols-1
+                gap-10
                 "
             >
 
@@ -94,6 +94,9 @@ export default function EditorBooks() {
                         <div
                             className={`
                             group
+                            mx-auto
+                            w-full
+                            max-w-[230px]
                             cursor-pointer
                             transition-all
                             duration-700
@@ -120,26 +123,25 @@ export default function EditorBooks() {
                                 relative
                                 overflow-hidden
                                 bg-[var(--paper)]
-                                p-1
                                 transition-all
                                 duration-500
 
+                                p-1
 
                                 ${featured
                                         ?
                                         `
-                                        border-[3px]
+                                        border-2
                                         border-[#b8862c]
-                                        shadow-[0_0_40px_rgba(184,134,44,0.35)]
+                                        shadow-[0_0_35px_rgba(184,134,44,0.25)]
                                         `
                                         :
                                         `
                                         border
-border-[#d8cbb5]
-shadow-[0_4px_15px_rgba(0,0,0,0.06)]
+                                        border-[#d8cbb5]
+                                        shadow-[0_4px_15px_rgba(0,0,0,0.06)]
                                         `
                                     }
-
 
                                 group-hover:-translate-y-3
                                 group-hover:shadow-2xl
@@ -149,24 +151,18 @@ shadow-[0_4px_15px_rgba(0,0,0,0.06)]
 
                                 <Image
                                     src={book.url}
-                                    alt={
-                                        meta?.title ??
-                                        book.name
-                                    }
-                                    width={350}
-                                    height={500}
-                                    className={`
-w-full
-object-contain
-transition-transform
-duration-500
-group-hover:scale-105
-
-${featured
-                                            ? "h-[230px]"
-                                            : "h-[190px]"
-                                        }
-`}
+                                    alt={meta?.title ?? book.name}
+                                    width={300}
+                                    height={450}
+                                    className="
+                                    mx-auto
+                                    h-auto
+                                    w-full
+                                    object-contain
+                                    transition-transform
+                                    duration-500
+                                    group-hover:scale-105
+                                    "
                                 />
 
 

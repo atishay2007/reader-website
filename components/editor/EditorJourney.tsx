@@ -109,8 +109,7 @@ export default function EditorJourney() {
 
     return (
 
-        <div className="relative space-y-28">
-
+        <div className="relative space-y-20">
             {sections.map((section, index) => (
 
                 <section
@@ -125,11 +124,10 @@ export default function EditorJourney() {
                     duration-1000
                     ease-out
 
-                    ${
-                        visible.includes(index)
+                    ${visible.includes(index)
                             ? "opacity-100 translate-y-0"
                             : "opacity-0 translate-y-16"
-                    }
+                        }
                     `}
                 >
 
@@ -138,11 +136,13 @@ export default function EditorJourney() {
                     <div
                         className="
                         absolute
-                        -left-4
-                        -top-8
+                        -left-10
+-top-10
                         font-serif
-                        text-7xl
+                        text-8xl
                         font-semibold
+                        text-[#eadfc8]
+                        opacity-70                       
                         text-[var(--border)]
                         opacity-40
                         "
@@ -191,7 +191,8 @@ export default function EditorJourney() {
                             className="
                             text-xl
                             text-[var(--gold)]
-                            animate-pulse
+transition-transform
+group-hover:scale-125
                             "
                         >
                             ✦
@@ -213,8 +214,9 @@ export default function EditorJourney() {
                         className="
                         text-center
                         font-[var(--font-hindi)]
-                        text-4xl
-                        font-semibold
+text-3xl
+md:text-4xl                        
+font-semibold
                         text-[var(--accent)]
                         "
                     >
@@ -227,7 +229,7 @@ export default function EditorJourney() {
                         className="
                         mx-auto
                         mt-8
-                        max-w-2xl
+max-w-xl
                         space-y-6
                         text-center
                         text-lg
@@ -244,11 +246,10 @@ export default function EditorJourney() {
                                 transition-all
                                 duration-700
 
-                                ${
-                                    visible.includes(index)
+                                ${visible.includes(index)
                                         ? "opacity-100 translate-y-0"
                                         : "opacity-0 translate-y-5"
-                                }
+                                    }
                                 `}
                                 style={{
                                     transitionDelay:
