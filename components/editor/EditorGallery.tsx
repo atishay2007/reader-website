@@ -49,7 +49,7 @@ export default function EditorGallery() {
 
         return (
             <section className="p-20 text-center">
-                NO IMAGES LOADED
+                IMAGES LOADING....
             </section>
         );
 
