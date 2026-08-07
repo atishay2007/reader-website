@@ -15,21 +15,44 @@ export type Post = {
 
 export async function getAllPosts(): Promise<Post[]> {
 
-    const { data, error } = await supabase
-        .from("posts")
-        .select("*")
-        .order("date", {
-            ascending: false,
-        });
+    const pageSize = 1000;
+    let allPosts: any[] = [];
+
+    for (let page = 0; ; page++) {
+
+        const { data, error } = await supabase
+            .from("posts")
+            .select("*")
+            .order("date", {
+                ascending: false,
+            })
+            .range(
+                page * pageSize,
+                page * pageSize + pageSize - 1
+            );
 
 
-    if (error) {
-        console.error(error);
-        return [];
+        if (error) {
+            console.error(error);
+            break;
+        }
+
+
+        if (!data || data.length === 0) {
+            break;
+        }
+
+
+        allPosts.push(...data);
+
+
+        if (data.length < pageSize) {
+            break;
+        }
     }
 
 
-    return data.map((post) => ({
+    return allPosts.map((post) => ({
         ...post,
         fileId: String(post.id),
     }));
