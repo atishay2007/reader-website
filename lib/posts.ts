@@ -9,6 +9,7 @@ export type Post = {
     category: string | null;
     date: string;
     fileId: string;
+    excerpt?: string;
 };
 
 
@@ -16,7 +17,7 @@ export type Post = {
 export async function getAllPosts(): Promise<Post[]> {
 
     const pageSize = 1000;
-const allPosts: Post[] = [];
+    const allPosts: Post[] = [];
 
     for (let page = 0; ; page++) {
 
@@ -121,6 +122,11 @@ export async function getLatestPosts(
 
     return data.map((post) => ({
         ...post,
+        excerpt: post.content
+            .replace(/<[^>]*>/g, "")
+            .replace(/\s+/g, " ")
+            .trim()
+            .slice(0, 120),
         fileId: String(post.id),
     }));
 }

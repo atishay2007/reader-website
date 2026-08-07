@@ -227,7 +227,7 @@ export default function Footer() {
                     text-[var(--muted)]
                     "
                 >
-                    Deigned and Developed by Atishay J.
+                    Designed and Developed by Atishay J.
                 </p>
 
 

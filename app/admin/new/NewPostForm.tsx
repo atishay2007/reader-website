@@ -19,7 +19,7 @@ export default function NewPostForm() {
     const router = useRouter();
 
     const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState("नीलम जैन");
+    const [author, setAuthor] = useState("");
     const [category, setCategory] = useState("");
     const [content, setContent] = useState("");
 

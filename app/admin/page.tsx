@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { getAllPosts } from "@/lib/posts";
+import { getPostCards } from "@/lib/posts";
 import DeletePostButton from "@/components/admin/DeletePostButton";
 
 export default async function AdminPage() {
@@ -18,7 +18,7 @@ export default async function AdminPage() {
         redirect("/admin/login");
     }
 
-    const posts = await getAllPosts();
+const posts = await getPostCards();
 
     return (
         <main className="mx-auto max-w-6xl px-6 py-16">
