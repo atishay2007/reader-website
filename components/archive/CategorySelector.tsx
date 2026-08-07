@@ -17,8 +17,14 @@ export default function CategorySelector({
     selectedCategory?: string;
 }) {
     return (
-        <div className="flex flex-wrap justify-center gap-3">
-
+        <div
+            className="
+            flex
+            flex-wrap
+            justify-center
+            gap-4
+            "
+        >
             {categories.map((category) => {
                 const active =
                     selectedCategory === category ||
@@ -33,24 +39,65 @@ export default function CategorySelector({
                                 : `/articles?category=${category}`
                         }
                         className={`
-        rounded-full
-        border
-        px-5
-        py-2
-        text-sm
-        transition
+                        group
+                        relative
+                        overflow-hidden
+                        rounded-full
+                        border
+                        px-7
+                        py-3
+                        font-[var(--font-hindi)]
+                        text-base
+                        font-semibold
+                        transition-all
+                        duration-300
+                        hover:-translate-y-1
+                        hover:shadow-lg
 
-        ${active
-                                ? "border-[var(--accent)] bg-[var(--accent)] text-white"
-                                : "border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                        ${active
+                                ? `
+                                border-[var(--gold)]
+                                bg-[var(--gold)]
+                                text-[#2b1b10]
+                                shadow-[0_8px_25px_rgba(184,134,44,0.35)]
+                                `
+                                : `
+                                border-[var(--border)]
+                                bg-[var(--paper)]
+                                text-[var(--foreground)]
+                                hover:border-[var(--gold)]
+                                hover:text-[var(--gold)]
+                                `
                             }
-    `}
+                        `}
                     >
-                        {category}
+                        <span
+                            className="
+                            relative
+                            z-10
+                            "
+                        >
+                            {category}
+                        </span>
+
+
+                        <span
+                            className="
+                            absolute
+                            inset-0
+                            -translate-x-full
+                            bg-gradient-to-r
+                            from-transparent
+                            via-white/20
+                            to-transparent
+                            transition-transform
+                            duration-700
+                            group-hover:translate-x-full
+                            "
+                        />
                     </Link>
                 );
             })}
-
         </div>
     );
 }

@@ -219,6 +219,16 @@ export default function Footer() {
                 >
                     © {new Date().getFullYear()} श्री देशना. सर्वाधिकार सुरक्षित।
                 </p>
+                <p
+                    className="
+                    mt-5
+                    text-center
+                    text-sm
+                    text-[var(--muted)]
+                    "
+                >
+                    Deigned and Developed by Atishay J.
+                </p>
 
 
             </div>
