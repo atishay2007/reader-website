@@ -7,20 +7,16 @@ type PostCardProps = {
         date: string;
         author?: string | null;
         category?: string | null;
-        content: string;
+        excerpt?: string | null;
     };
     index: number;
 };
-
 export default function PostCard({
     post,
     index,
 }: PostCardProps) {
 
-    const excerpt = post.content
-        .replace(/<[^>]*>/g, "")
-        .replace(/\s+/g, " ")
-        .slice(0, 180);
+    const excerpt = post.excerpt || "";
 
 
     const date = new Date(post.date).toLocaleDateString(

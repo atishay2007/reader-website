@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
-import { getPostById, getAllPosts } from "@/lib/posts";
+import { getPostById, getNextPost } from "@/lib/posts";
 import Link from "next/link";
 import Comments from "@/components/comments/Comments";
+
+export const revalidate = 3600;
 
 export async function generateMetadata({
     params,
@@ -54,17 +56,7 @@ export default async function PostPage({
         return notFound();
     }
 
-    const allPosts = await getAllPosts();
-
-    const currentIndex = allPosts.findIndex(
-        (item) => item.fileId === id
-    );
-
-    const nextPost =
-        currentIndex >= 0 &&
-            currentIndex < allPosts.length - 1
-            ? allPosts[currentIndex + 1]
-            : null;
+    const nextPost = await getNextPost(post.date);
 
     return (
         <article className="mx-auto max-w-4xl px-6 py-12">

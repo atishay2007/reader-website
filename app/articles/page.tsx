@@ -1,8 +1,9 @@
-import { getAllPosts } from "@/lib/posts";
-import Link from "next/link";
+import { getPostCards } from "@/lib/posts";import Link from "next/link";
 import ArchiveSelector from "@/components/archive/ArchiveList";
 import CategorySelector from "@/components/archive/CategorySelector";
 
+
+export const revalidate = 3600;
 
 export default async function ArchivePage({
     searchParams,
@@ -16,7 +17,7 @@ export default async function ArchivePage({
 }) {
 
 
-    const posts = await getAllPosts();
+const posts = await getPostCards();
 
 
     const years = Array.from(

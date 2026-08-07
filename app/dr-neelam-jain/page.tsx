@@ -4,6 +4,8 @@ import EditorTimeline from "@/components/editor/EditorTimeline";
 import EditorGallery from "@/components/editor/EditorGallery";
 import EditorBooks from "@/components/editor/EditorBooks";
 
+export const revalidate = 3600;
+
 export default function EditorPage() {
     return (
         <main>

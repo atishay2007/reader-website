@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase";
-import { unstable_noStore as noStore } from "next/cache";
 
 export type Post = {
     id: number;
@@ -12,8 +11,8 @@ export type Post = {
 };
 
 
+
 export async function getAllPosts(): Promise<Post[]> {
-    noStore();
 
     const { data, error } = await supabase
         .from("posts")
@@ -22,16 +21,20 @@ export async function getAllPosts(): Promise<Post[]> {
             ascending: false,
         });
 
+
     if (error) {
         console.error(error);
         return [];
     }
+
 
     return data.map((post) => ({
         ...post,
         fileId: String(post.id),
     }));
 }
+
+
 
 
 export async function getPostById(
@@ -44,9 +47,11 @@ export async function getPostById(
         .eq("id", Number(id))
         .single();
 
+
     if (error || !data) {
         return null;
     }
+
 
     return {
         ...data,
@@ -55,10 +60,101 @@ export async function getPostById(
 }
 
 
-export async function getLatestPosts(limit = 10) {
-    noStore();
 
-    const posts = await getAllPosts();
 
-    return posts.slice(0, limit);
+export async function getLatestPosts(
+    limit = 10
+): Promise<Post[]> {
+
+    const { data, error } = await supabase
+        .from("posts")
+        .select(`
+            id,
+            title,
+            content,
+            author,
+            category,
+            date
+        `)
+        .order("date", {
+            ascending: false,
+        })
+        .limit(limit);
+
+
+    if (error) {
+        console.error(error);
+        return [];
+    }
+
+
+    return data.map((post) => ({
+        ...post,
+        fileId: String(post.id),
+    }));
+}
+
+
+
+
+export async function getNextPost(
+    date: string
+): Promise<Post | null> {
+
+    const { data, error } = await supabase
+        .from("posts")
+        .select(`
+            id,
+            title,
+            date
+        `)
+        .lt("date", date)
+        .order("date", {
+            ascending: false,
+        })
+        .limit(1)
+        .single();
+
+
+    if (error || !data) {
+        return null;
+    }
+
+
+    return {
+        id: data.id,
+        title: data.title,
+        date: data.date,
+        content: "",
+        author: null,
+        category: null,
+        fileId: String(data.id),
+    };
+}
+export async function getPostCards(limit?: number) {
+    let query = supabase
+        .from("posts")
+        .select(`
+            id,
+            title,
+            author,
+            category,
+            date
+        `)
+        .order("date", {
+            ascending: false,
+        });
+
+    if (limit) {
+        query = query.limit(limit);
+    }
+
+    const { data, error } = await query;
+
+    if (error || !data) return [];
+
+    return data.map(post => ({
+        ...post,
+        fileId: String(post.id),
+    }));
 }

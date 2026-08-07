@@ -1,8 +1,8 @@
-import { getAllPosts } from "@/lib/posts";
+import { getPostCards } from "@/lib/posts";
 import Link from "next/link";
 
 export default async function EditorialPage() {
-    const posts = await getAllPosts();
+const posts = await getPostCards();
 
     const editorials = posts.filter(
         (post) => post.category === "Editorial"

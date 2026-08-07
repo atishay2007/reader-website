@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCoverUrl } from "@/lib/archive";
 
+export const revalidate = 3600;
+
 export default async function ArchivePage() {
     const supabase = await createClient();
 
