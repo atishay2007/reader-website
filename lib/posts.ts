@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { unstable_cache } from "next/cache";
 
 export type Post = {
     id: number;
@@ -36,30 +37,37 @@ export async function getAllPosts(): Promise<Post[]> {
 
 
 
-
 export async function getPostById(
     id: string
 ): Promise<Post | null> {
 
-    const { data, error } = await supabase
-        .from("posts")
-        .select("*")
-        .eq("id", Number(id))
-        .single();
+    return unstable_cache(
+        async () => {
+
+            const { data, error } = await supabase
+                .from("posts")
+                .select("*")
+                .eq("id", Number(id))
+                .single();
 
 
-    if (error || !data) {
-        return null;
-    }
+            if (error || !data) {
+                return null;
+            }
 
 
-    return {
-        ...data,
-        fileId: String(data.id),
-    };
+            return {
+                ...data,
+                fileId: String(data.id),
+            };
+
+        },
+        ["post", id],
+        {
+            revalidate: 3600,
+        }
+    )();
 }
-
-
 
 
 export async function getLatestPosts(
@@ -94,43 +102,52 @@ export async function getLatestPosts(
     }));
 }
 
-
-
-
 export async function getNextPost(
     date: string
 ): Promise<Post | null> {
 
-    const { data, error } = await supabase
-        .from("posts")
-        .select(`
-            id,
-            title,
-            date
-        `)
-        .lt("date", date)
-        .order("date", {
-            ascending: false,
-        })
-        .limit(1)
-        .single();
+    return unstable_cache(
+        async () => {
+
+            const { data, error } = await supabase
+                .from("posts")
+                .select(`
+                    id,
+                    title,
+                    date
+                `)
+                .lt("date", date)
+                .order("date", {
+                    ascending: false,
+                })
+                .limit(1)
+                .single();
 
 
-    if (error || !data) {
-        return null;
-    }
+            if (error || !data) {
+                return null;
+            }
 
 
-    return {
-        id: data.id,
-        title: data.title,
-        date: data.date,
-        content: "",
-        author: null,
-        category: null,
-        fileId: String(data.id),
-    };
+            return {
+                id: data.id,
+                title: data.title,
+                date: data.date,
+                content: "",
+                author: null,
+                category: null,
+                fileId: String(data.id),
+            };
+
+        },
+        ["next-post", date],
+        {
+            revalidate: 3600,
+        }
+    )();
 }
+
+
 export async function getPostCards(limit?: number) {
     let query = supabase
         .from("posts")

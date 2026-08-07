@@ -4,6 +4,7 @@ import Link from "next/link";
 import Comments from "@/components/comments/Comments";
 
 export const revalidate = 3600;
+export const dynamicParams = true;
 
 export async function generateMetadata({
     params,
