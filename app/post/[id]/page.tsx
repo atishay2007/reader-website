@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPostById, getNextPost, getPostCards } from "@/lib/posts";
+import { getPostById, getNextPost } from "@/lib/posts";
 import Link from "next/link";
 import Comments from "@/components/comments/Comments";
 export const revalidate = 3600;

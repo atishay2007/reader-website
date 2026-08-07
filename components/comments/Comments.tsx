@@ -82,7 +82,7 @@ export default function Comments({
         setName("");
         setMessage("");
         setLoading(false);
-        
+        setSubmitted(true);
 
 
 

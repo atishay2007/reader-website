@@ -16,7 +16,7 @@ export type Post = {
 export async function getAllPosts(): Promise<Post[]> {
 
     const pageSize = 1000;
-    let allPosts: any[] = [];
+const allPosts: Post[] = [];
 
     for (let page = 0; ; page++) {
 
