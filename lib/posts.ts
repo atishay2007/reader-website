@@ -13,7 +13,6 @@ export type Post = {
 };
 
 
-
 export async function getAllPosts(): Promise<Post[]> {
 
     const pageSize = 1000;
@@ -59,6 +58,17 @@ export async function getAllPosts(): Promise<Post[]> {
     }));
 }
 
+export function getReadingTime(content: string) {
+    const words = content
+        .replace(/<[^>]*>/g, "")
+        .trim()
+        .split(/\s+/)
+        .length;
+
+    const minutes = Math.ceil(words / 200);
+
+    return Math.max(1, minutes);
+}
 
 
 export async function getPostById(
@@ -176,6 +186,90 @@ export async function getNextPost(
     )();
 }
 
+export async function getPreviousPost(
+    date: string
+): Promise<Post | null> {
+
+    return unstable_cache(
+        async () => {
+
+            const { data, error } = await supabase
+                .from("posts")
+                .select(`
+                    id,
+                    title,
+                    date
+                `)
+                .gt("date", date)
+                .order("date", {
+                    ascending: true,
+                })
+                .limit(1)
+                .single();
+
+
+            if (error || !data) {
+                return null;
+            }
+
+
+            return {
+                id: data.id,
+                title: data.title,
+                date: data.date,
+                content: "",
+                author: null,
+                category: null,
+                fileId: String(data.id),
+            };
+
+        },
+        ["previous-post", date],
+        {
+            revalidate: 3600,
+        }
+    )();
+
+}
+
+
+export async function getRelatedPosts(
+    category: string | null,
+    currentId: string
+): Promise<Post[]> {
+
+    if (!category) return [];
+
+
+    const { data, error } = await supabase
+        .from("posts")
+        .select(`
+            id,
+            title,
+            author,
+            category,
+            date
+        `)
+        .eq("category", category)
+        .neq("id", Number(currentId))
+        .order("date", {
+            ascending: false,
+        })
+        .limit(3);
+
+
+    if (error || !data) {
+        return [];
+    }
+
+
+    return data.map((post) => ({
+        ...post,
+        content: "",
+        fileId: String(post.id),
+    }));
+
+}
 
 export async function getPostCards(limit?: number) {
     let query = supabase
