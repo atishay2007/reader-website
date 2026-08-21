@@ -1,36 +1,76 @@
 "use client";
 
 import { useState } from "react";
+import {
+    FaWhatsapp,
+    FaFacebook,
+    FaLink,
+} from "react-icons/fa";
 
 
 export default function ShareButton({
     title,
+    url,
+    label = "Share",
 }: {
     title: string;
+    url?: string;
+    label?: string;
 }) {
 
     const [open, setOpen] = useState(false);
     const [copied, setCopied] = useState(false);
 
 
-    const url =
-        typeof window !== "undefined"
+    const shareUrl =
+        url ||
+        (typeof window !== "undefined"
             ? window.location.href
-            : "";
+            : "");
+
+
 
 
 
     async function copyLink() {
 
-        await navigator.clipboard.writeText(url);
+        try {
 
-        setCopied(true);
+            await navigator.clipboard.writeText(shareUrl);
 
-        setTimeout(() => {
-            setCopied(false);
-        }, 2000);
+            setCopied(true);
+
+            setTimeout(() => {
+                setCopied(false);
+            }, 2000);
+
+        } catch {
+            console.error("Copy failed");
+        }
 
     }
+
+
+
+
+
+    async function nativeShare() {
+
+        try {
+
+            await navigator.share?.({
+                title,
+                text: title,
+                url: shareUrl,
+            });
+
+        } catch {
+            // user cancelled share
+        }
+
+    }
+
+
 
 
 
@@ -38,7 +78,7 @@ export default function ShareButton({
 
         window.open(
             `https://wa.me/?text=${encodeURIComponent(
-                title + "\n" + url
+                `${title}\n${shareUrl}`
             )}`,
             "_blank"
         );
@@ -47,10 +87,14 @@ export default function ShareButton({
 
 
 
+
+
     function facebook() {
 
         window.open(
-            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                shareUrl
+            )}`,
             "_blank"
         );
 
@@ -58,15 +102,26 @@ export default function ShareButton({
 
 
 
-    async function instagram() {
 
-        await copyLink();
 
-        alert(
-            "लिंक कॉपी हो गया। अब इसे Instagram पर साझा करें।"
-        );
+    function openShare() {
+
+        if (
+            typeof navigator !== "undefined" &&
+            "share" in navigator
+        ) {
+
+            nativeShare();
+
+        } else {
+
+            setOpen(!open);
+
+        }
 
     }
+
+
 
 
 
@@ -79,30 +134,38 @@ export default function ShareButton({
         >
 
             <button
-                onClick={() => setOpen(!open)}
+                onClick={openShare}
                 className="
-    inline-flex
-    items-center
-    justify-center
-    gap-2
-    rounded-full
-    border
-    border-[var(--border)]
-    px-6
-    py-2
-    font-[var(--font-hindi)]
-    text-sm
-    leading-none
-    text-[var(--muted)]
-    transition-all
-    duration-300
-    hover:border-[var(--gold)]
-    hover:text-[var(--gold)]
-  "
+                inline-flex
+                items-center
+                justify-center
+                gap-2
+                rounded-full
+                border
+                border-[var(--border)]
+                px-6
+                py-2.5
+                font-[var(--font-hindi)]
+                text-sm
+                text-[var(--muted)]
+                transition-all
+                duration-300
+                hover:border-[var(--gold)]
+                hover:text-[var(--gold)]
+                "
             >
-                <span>↗</span>
-                <span>Share</span>
+
+                <span>
+                    ↗
+                </span>
+
+                <span>
+                    {label}
+                </span>
+
             </button>
+
+
 
 
 
@@ -112,78 +175,108 @@ export default function ShareButton({
                     className="
                     absolute
                     right-0
-                    z-20
+                    z-50
                     mt-3
-                    grid
-                    w-52
-                    gap-2
+                    w-56
                     rounded-xl
                     border
                     border-[var(--border)]
                     bg-[var(--paper)]
                     p-3
-                    shadow-lg
+                    shadow-xl
                     "
                 >
+
 
                     <button
                         onClick={whatsapp}
                         className="
+                        flex
+                        w-full
+                        items-center
+                        gap-3
                         rounded-lg
                         px-4
-                        py-2
+                        py-3
                         text-left
                         transition
                         hover:bg-[var(--border)]
                         "
                     >
-                        🟢 WhatsApp
+
+                        <FaWhatsapp
+                            className="
+                            text-xl
+                            text-green-500
+                            "
+                        />
+
+                        WhatsApp
+
                     </button>
+
+
+
 
 
                     <button
                         onClick={facebook}
                         className="
+                        flex
+                        w-full
+                        items-center
+                        gap-3
                         rounded-lg
                         px-4
-                        py-2
+                        py-3
                         text-left
                         transition
                         hover:bg-[var(--border)]
                         "
                     >
-                        🔵 Facebook
+
+                        <FaFacebook
+                            className="
+                            text-xl
+                            text-blue-600
+                            "
+                        />
+
+                        Facebook
+
                     </button>
 
 
-                    <button
-                        onClick={instagram}
-                        className="
-                        rounded-lg
-                        px-4
-                        py-2
-                        text-left
-                        transition
-                        hover:bg-[var(--border)]
-                        "
-                    >
-                        🟣 Instagram
-                    </button>
 
 
 
                     <button
                         onClick={copyLink}
                         className="
+                        flex
+                        w-full
+                        items-center
+                        gap-3
                         rounded-lg
                         px-4
-                        py-2
+                        py-3
                         text-left
                         transition
                         hover:bg-[var(--border)]
                         "
                     >
-                        🔗 {copied ? "कॉपी हुआ" : "Copy Link"}
+
+                        <FaLink
+                            className="
+                            text-lg
+                            "
+                        />
+
+                        {copied
+                            ? "Copied ✓"
+                            : "Copy Link"
+                        }
+
                     </button>
 
 

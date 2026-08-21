@@ -40,6 +40,26 @@ export const metadata: Metadata = {
         siteName: "श्री देशना",
         locale: "hi_IN",
         type: "website",
+
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "श्री देशना",
+            },
+        ],
+    },
+
+    twitter: {
+        card: "summary_large_image",
+        title: "श्री देशना",
+        description:
+            "हिंदी साहित्य, विचार और संस्कृति का डिजिटल संग्रह।",
+        images: ["/og-image.png"],
+    },
+    icons: {
+        icon: "/icon.png",
     },
 };
 

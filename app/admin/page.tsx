@@ -3,13 +3,19 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getPostCards } from "@/lib/posts";
 import DeletePostButton from "@/components/admin/DeletePostButton";
+import ShareButton from "@/components/posts/ShareButton";
+
 
 export default async function AdminPage() {
+
     const supabase = await createClient();
+
 
     const {
         data: { user },
     } = await supabase.auth.getUser();
+
+
 
     if (
         !user ||
@@ -18,14 +24,29 @@ export default async function AdminPage() {
         redirect("/admin/login");
     }
 
-const posts = await getPostCards();
+
+
+    const posts = await getPostCards();
+
+
 
     return (
-        <main className="mx-auto max-w-6xl px-6 py-16">
+
+        <main
+            className="
+            mx-auto
+            max-w-6xl
+            px-6
+            py-16
+            "
+        >
+
+
 
             {/* HEADER */}
 
-            <div className="
+            <div
+                className="
                 flex
                 flex-col
                 gap-6
@@ -35,9 +56,11 @@ const posts = await getPostCards();
                 md:flex-row
                 md:items-center
                 md:justify-between
-            ">
+                "
+            >
 
                 <div>
+
                     <p
                         className="
                         font-[var(--font-hindi)]
@@ -48,10 +71,10 @@ const posts = await getPostCards();
                         श्री देशना CMS
                     </p>
 
+
                     <h1
                         className="
                         mt-2
-                        font-[var(--font-hindi)]
                         text-5xl
                         font-semibold
                         "
@@ -59,15 +82,18 @@ const posts = await getPostCards();
                         Admin Dashboard
                     </h1>
 
+
                     <p
                         className="
                         mt-3
                         text-[var(--muted)]
                         "
                     >
-                        अपनी सभी रचनाओं को प्रबंधित करें
+                        Manage all your articles
                     </p>
+
                 </div>
+
 
 
                 <Link
@@ -79,7 +105,6 @@ const posts = await getPostCards();
                     bg-[var(--gold)]
                     px-7
                     py-3
-                    font-[var(--font-hindi)]
                     font-semibold
                     text-[#2b1b10]
                     transition
@@ -87,10 +112,14 @@ const posts = await getPostCards();
                     hover:shadow-lg
                     "
                 >
-                    + नया लेख लिखें
+                    + New Post
                 </Link>
 
+
             </div>
+
+
+
 
 
             {/* STATS */}
@@ -104,6 +133,7 @@ const posts = await getPostCards();
                 "
             >
 
+
                 <div
                     className="
                     rounded-xl
@@ -113,9 +143,11 @@ const posts = await getPostCards();
                     p-6
                     "
                 >
+
                     <p className="text-sm text-[var(--muted)]">
-                        कुल लेख
+                        Total Articles
                     </p>
+
 
                     <p
                         className="
@@ -127,7 +159,10 @@ const posts = await getPostCards();
                     >
                         {posts.length}
                     </p>
+
                 </div>
+
+
 
 
                 <div
@@ -139,9 +174,11 @@ const posts = await getPostCards();
                     p-6
                     "
                 >
+
                     <p className="text-sm text-[var(--muted)]">
-                        नवीनतम लेख
+                        Latest Article
                     </p>
+
 
                     <p
                         className="
@@ -153,7 +190,10 @@ const posts = await getPostCards();
                     >
                         {posts[0]?.title || "—"}
                     </p>
+
                 </div>
+
+
 
 
                 <div
@@ -165,9 +205,11 @@ const posts = await getPostCards();
                     p-6
                     "
                 >
+
                     <p className="text-sm text-[var(--muted)]">
-                        लेखक
+                        Authors
                     </p>
+
 
                     <p
                         className="
@@ -176,22 +218,31 @@ const posts = await getPostCards();
                         font-semibold
                         "
                     >
-                        {new Set(
-                            posts.map(
-                                p => p.author
-                            )
-                        ).size}
+                        {
+                            new Set(
+                                posts
+                                    .map(
+                                        p => p.author
+                                    )
+                                    .filter(Boolean)
+                            ).size
+                        }
                     </p>
 
                 </div>
 
+
             </div>
+
+
+
 
 
 
             {/* POSTS */}
 
             <section className="mt-14">
+
 
                 <div
                     className="
@@ -226,13 +277,14 @@ const posts = await getPostCards();
 
 
 
-                <div
-                    className="
-                    space-y-4
-                    "
-                >
+
+
+
+                <div className="space-y-4">
+
 
                     {posts.map((post) => (
+
 
                         <div
                             key={post.fileId}
@@ -240,13 +292,14 @@ const posts = await getPostCards();
                             group
                             flex
                             flex-col
-                            gap-5
+                            gap-6
                             rounded-xl
                             border
                             border-[var(--border)]
                             bg-[var(--paper)]
-                            p-6
-                            transition
+                            p-7
+                            transition-all
+                            duration-300
                             hover:-translate-y-1
                             hover:border-[var(--gold)]
                             md:flex-row
@@ -255,24 +308,46 @@ const posts = await getPostCards();
                             "
                         >
 
-                            <div>
 
-                                <h3
-                                    className="
-                                    font-[var(--font-hindi)]
-                                    text-2xl
-                                    font-semibold
-                                    "
+
+                            <div
+                                className="
+                                min-w-0
+                                "
+                            >
+
+
+                                <Link
+                                    href={`/post/${post.fileId}`}
+                                    className="group/title"
                                 >
-                                    {post.title}
-                                </h3>
+
+                                    <h3
+                                        className="
+                                        font-[var(--font-hindi)]
+                                        text-xl
+                                        font-semibold
+                                        transition
+                                        group-hover/title:text-[var(--gold)]
+                                        md:text-2xl
+                                        "
+                                    >
+                                        {post.title}
+                                    </h3>
+
+
+                                </Link>
+
+
 
 
                                 <div
                                     className="
                                     mt-3
                                     flex
-                                    gap-4
+                                    flex-wrap
+                                    gap-x-4
+                                    gap-y-2
                                     text-sm
                                     text-[var(--muted)]
                                     "
@@ -287,31 +362,49 @@ const posts = await getPostCards();
 
 
                                     {post.author && (
+
                                         <span>
-                                            लेखक: {post.author}
+                                            Author: {post.author}
                                         </span>
+
                                     )}
 
 
+
                                     {post.category && (
+
                                         <span>
-                                            {post.category}
+                                            Category: {post.category}
                                         </span>
+
                                     )}
 
                                 </div>
 
+
                             </div>
+
+
 
 
 
                             <div
                                 className="
                                 flex
+                                flex-wrap
                                 items-center
-                                gap-5
+                                gap-3
                                 "
                             >
+
+
+
+                                <ShareButton
+                                    title={post.title}
+                                    url={`https://shreedeshna.in/post/${post.fileId}`}
+                                />
+
+
 
                                 <Link
                                     href={`/admin/edit/${post.fileId}`}
@@ -328,24 +421,34 @@ const posts = await getPostCards();
                                     hover:text-white
                                     "
                                 >
-                                    संपादित करें
+                                    Edit
                                 </Link>
 
 
-                                <DeletePostButton id={post.id} />
+
+                                <DeletePostButton
+                                    id={post.id}
+                                />
+
+
 
                             </div>
 
 
+
                         </div>
+
 
                     ))}
 
+
                 </div>
+
 
             </section>
 
 
         </main>
+
     );
 }

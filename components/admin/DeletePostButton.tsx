@@ -37,7 +37,7 @@ export default function DeletePostButton({
       onClick={remove}
       className="text-red-600"
     >
-      हटाएं
+      Delete
     </button>
   );
 }
