@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_Devanagari } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
-
+import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -78,6 +78,7 @@ export default function RootLayout({
     return (
         <html lang="hi">
             <body className={`${hindi.variable} flex min-h-screen flex-col`}>
+                <OrganizationSchema />
 
                 <Header />
 
