@@ -11,59 +11,11 @@ import Link from "next/link";
 import Comments from "@/components/comments/Comments";
 import ReadingProgress from "@/components/posts/ReadingProgress";
 import RelatedPosts from "@/components/posts/RelatedPosts";
-import ShareButton from "@/components/posts/ShareButton";
+import ArticleReader from "@/components/posts/ArticleReader";
 
 
 export const revalidate = 3600;
 export const dynamicParams = true;
-
-
-export async function generateStaticParams() {
-    return [];
-}
-
-
-export async function generateMetadata({
-    params,
-}: {
-    params: Promise<{ id: string }>;
-}) {
-
-    const { id } = await params;
-
-    const post = await getPostById(id);
-
-    if (!post) {
-        return {};
-    }
-
-
-    const description =
-        post.content
-            ?.replace(/<[^>]*>/g, "")
-            .replace(/\s+/g, " ")
-            .trim()
-            .slice(0, 160) || post.title;
-
-
-    return {
-        title: `${post.title} | श्री देशना`,
-        description,
-
-        openGraph: {
-            title: `${post.title} | श्री देशना`,
-            description,
-            type: "article",
-        },
-
-        twitter: {
-            card: "summary",
-            title: `${post.title} | श्री देशना`,
-            description,
-        },
-    };
-}
-
 
 
 export default async function PostPage({
@@ -74,9 +26,7 @@ export default async function PostPage({
 
     const { id } = await params;
 
-
     const post = await getPostById(id);
-
 
     if (!post) {
         return notFound();
@@ -110,66 +60,84 @@ export default async function PostPage({
                 "
             >
 
-
                 <div
                     className="
                     grid
+                    article-layout
                     gap-10
                     lg:grid-cols-[220px_minmax(0,760px)_260px]
                     "
                 >
 
 
-
                     {/* LEFT */}
 
-                    <aside className="hidden lg:block">
+                    <aside
+                        className="
+                        reading-hide
+                        hidden
+                        lg:block
+                        "
+                    >
 
                         <div
                             className="
-        sticky
-        top-24
-        min-h-[calc(100vh-120px)]
-        flex
-        flex-col
-        "
+                            sticky
+                            top-24
+                            min-h-[calc(100vh-120px)]
+                            flex
+                            flex-col
+                            "
                         >
 
-                            <Link href="/articles">
+                            <Link
+                                href="/articles"
+                                className="
+                                text-sm
+                                text-[var(--muted)]
+                                hover:text-[var(--gold)]
+                                "
+                            >
                                 ← सभी लेख
                             </Link>
 
 
+
                             {previousPost && (
-                                <div className="mt-auto">
 
-                                    <Link
-                                        href={`/post/${previousPost.fileId}`}
+                                <Link
+                                    href={`/post/${previousPost.fileId}`}
+                                    className="
+                                    mt-auto
+                                    rounded-xl
+                                    border
+                                    border-[var(--border)]
+                                    bg-[var(--paper)]
+                                    p-5
+                                    transition
+                                    hover:-translate-y-1
+                                    hover:border-[var(--gold)]
+                                    "
+                                >
+
+                                    <p className="mb-3 text-xs text-[var(--muted)]">
+                                        ← पिछला लेख
+                                    </p>
+
+
+                                    <h3
                                         className="
-                    group
-                    block
-                    rounded-xl
-                    border
-                    border-[var(--border)]
-                    bg-[var(--paper)]
-                    p-5
-                    transition-all
-                    hover:-translate-y-1
-                    hover:border-[var(--gold)]
-                    "
+                                        font-[var(--font-hindi)]
+                                        text-lg
+                                        font-semibold
+                                        "
                                     >
+                                        {previousPost.title}
+                                    </h3>
 
-                                        <p className="mb-3 text-xs text-[var(--muted)]">
-                                            ← पिछला लेख
-                                        </p>
 
-                                        <h3 className="font-[var(--font-hindi)] text-lg font-semibold">
-                                            {previousPost.title}
-                                        </h3>
+                                </Link>
 
-                                    </Link>
-
-                                </div>
                             )}
 
                         </div>
@@ -179,31 +147,22 @@ export default async function PostPage({
 
 
 
-
                     {/* ARTICLE */}
 
                     <article>
 
 
-                        <header
-                            className="
-                            mb-12
-                            text-center
-                            "
-                        >
+                        <header className="mb-10 text-center">
 
-                            <p
-                                className="
-                                mb-5
-                                font-[var(--font-hindi)]
-                                text-sm
-                                tracking-[0.2em]
-                                text-[var(--accent)]
-                                "
-                            >
+                            <p className="
+                            mb-5
+                            font-[var(--font-hindi)]
+                            text-sm
+                            tracking-[0.2em]
+                            text-[var(--accent)]
+                            ">
                                 श्री देशना संग्रह
                             </p>
-
 
 
                             <h1
@@ -221,7 +180,6 @@ export default async function PostPage({
 
 
                             {post.author && (
-
                                 <p
                                     className="
                                     mt-6
@@ -231,7 +189,6 @@ export default async function PostPage({
                                 >
                                     {post.author}
                                 </p>
-
                             )}
 
 
@@ -240,7 +197,6 @@ export default async function PostPage({
                                 className="
                                 mt-4
                                 flex
-                                flex-wrap
                                 justify-center
                                 gap-3
                                 font-[var(--font-hindi)]
@@ -256,21 +212,14 @@ export default async function PostPage({
                                     </>
                                 )}
 
-
                                 <span>
-                                    {new Date(post.date).toLocaleDateString(
-                                        "hi-IN",
-                                        {
-                                            day: "numeric",
-                                            month: "long",
-                                            year: "numeric",
-                                        }
-                                    )}
+                                    {new Date(post.date)
+                                        .toLocaleDateString(
+                                            "hi-IN"
+                                        )}
                                 </span>
 
-
                                 <span>•</span>
-
 
                                 <span>
                                     {readingTime} मिनट पढ़ने का समय
@@ -278,40 +227,30 @@ export default async function PostPage({
 
                             </div>
 
-
-
                         </header>
 
 
 
+                        <ArticleReader
+                            title={post.title}
+                        >
 
-                        <div
-                            className="
-                            rounded-sm
-                            border
-                            border-[var(--border)]
-                            bg-[var(--paper)]
-                            px-8
-                            py-12
-                            md:px-14
-                            md:py-16
-                            font-[var(--font-hindi)]
-                            text-xl
-                            leading-[2.2]
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: post.content,
+                                }}
+                            />
 
-                            [&_p]:mb-6
-                            [&_img]:mx-auto
-                            [&_img]:my-12
-                            [&_img]:rounded-sm
-                            "
-                            dangerouslySetInnerHTML={{
-                                __html: post.content,
-                            }}
-                        />
+                        </ArticleReader>
 
 
 
-                        <Comments postId={id} />
+
+                        <div className="comments-section mt-16">
+
+                            <Comments postId={id} />
+
+                        </div>
 
 
                     </article>
@@ -325,6 +264,7 @@ export default async function PostPage({
 
                     <aside
                         className="
+                        reading-hide
                         hidden
                         lg:block
                         "
@@ -332,27 +272,42 @@ export default async function PostPage({
 
                         <div
                             className="
-                            sticky
-                            top-24
-                            "
+    sticky
+    top-24
+    pt-10
+    min-h-[calc(100vh-120px)]
+    flex
+    flex-col
+    "
                         >
-
-
-                            <div className="mb-8">
-                                <ShareButton
-                                    title={post.title}
-                                />
-                            </div>
-
-
 
                             {relatedPosts.length > 0 && (
 
-                                <div className="mt-10">
+                                <div
+                                    className="
+                                    border
+                                    border-[var(--border)]
+                                    bg-[var(--paper)]
+                                    p-5
+                                    "
+                                >
+
+                                    <p
+                                        className="
+                                        mb-5
+                                        font-[var(--font-hindi)]
+                                        text-lg
+                                        text-[var(--muted)]
+                                        "
+                                    >
+                                        आपको यह भी पसंद आ सकता है
+                                    </p>
+
 
                                     <RelatedPosts
                                         posts={relatedPosts}
                                     />
+
 
                                 </div>
 
@@ -361,59 +316,46 @@ export default async function PostPage({
 
 
 
-
                             {nextPost && (
 
-                                <div
+                                <Link
+                                    href={`/post/${nextPost.fileId}`}
                                     className="
-                                    mt-10
+                                    mt-auto
+                                    rounded-xl
+                                    border
+                                    border-[var(--border)]
+                                    bg-[var(--paper)]
+                                    p-5
+                                    transition
+                                    hover:-translate-y-1
+                                    hover:border-[var(--gold)]
                                     "
                                 >
 
-                                    <Link
-                                        href={`/post/${nextPost.fileId}`}
+                                    <p
                                         className="
-                                        group
-                                        block
-                                        rounded-xl
-                                        border
-                                        border-[var(--border)]
-                                        bg-[var(--paper)]
-                                        p-5
-                                        transition-all
-                                        duration-300
-                                        hover:-translate-y-1
-                                        hover:border-[var(--gold)]
+                                        mb-3
+                                        text-xs
+                                        text-[var(--muted)]
                                         "
                                     >
-
-                                        <p
-                                            className="
-                                            mb-3
-                                            font-[var(--font-hindi)]
-                                            text-xs
-                                            text-[var(--muted)]
-                                            "
-                                        >
-                                            अगला लेख →
-                                        </p>
+                                        अगला लेख →
+                                    </p>
 
 
-                                        <h3
-                                            className="
-                                            font-[var(--font-hindi)]
-                                            text-lg
-                                            font-semibold
-                                            leading-relaxed
-                                            group-hover:text-[var(--gold)]
-                                            "
-                                        >
-                                            {nextPost.title.replace(/^#+\s*/, "")}
-                                        </h3>
+                                    <h3
+                                        className="
+                                        font-[var(--font-hindi)]
+                                        text-lg
+                                        font-semibold
+                                        "
+                                    >
+                                        {nextPost.title}
+                                    </h3>
 
-                                    </Link>
 
-                                </div>
+                                </Link>
 
                             )}
 
@@ -424,7 +366,6 @@ export default async function PostPage({
 
 
                 </div>
-
 
             </main>
 

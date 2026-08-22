@@ -5,7 +5,6 @@ import { getPostCards } from "@/lib/posts";
 import DeletePostButton from "@/components/admin/DeletePostButton";
 import ShareButton from "@/components/posts/ShareButton";
 
-
 export default async function AdminPage() {
 
     const supabase = await createClient();
@@ -291,6 +290,9 @@ export default async function AdminPage() {
                             className="
                             group
                             flex
+                                relative
+    z-0
+hover:z-50
                             flex-col
                             gap-6
                             rounded-xl

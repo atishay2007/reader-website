@@ -233,3 +233,42 @@ button {
     writing-mode: vertical-rl;
 
 }
+
+
+/* Reading Mode */
+
+body.reading-mode .reading-hide {
+    display: none !important;
+}
+
+
+body.reading-mode .article-layout {
+    display: block !important;
+}
+
+
+body.reading-mode main {
+    width: 100%;
+    max-width: none;
+}
+
+
+body.reading-mode .reading-container {
+    width: 100%;
+    max-width: 850px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+body.reading-mode .article-content {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+
+body.reading-mode {
+    overflow-x: hidden;
+}

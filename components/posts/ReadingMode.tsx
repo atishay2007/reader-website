@@ -1,14 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ReadingMode({
     onToggle,
 }: {
-    onToggle: (active: boolean) => void;
+    onToggle?: (active: boolean) => void;
 }) {
 
     const [active, setActive] = useState(false);
+
+
+    useEffect(() => {
+
+        return () => {
+            document.body.classList.remove("reading-mode");
+        };
+
+    }, []);
+
 
 
     function toggle() {
@@ -16,33 +26,66 @@ export default function ReadingMode({
         const next = !active;
 
         setActive(next);
-        onToggle(next);
+
+
+        if (next) {
+            document.body.classList.add("reading-mode");
+        } else {
+            document.body.classList.remove("reading-mode");
+        }
+
+
+        console.log(
+            "Reading mode:",
+            next,
+            document.body.className
+        );
+
+
+        onToggle?.(next);
 
     }
 
 
+
     return (
+
         <button
             onClick={toggle}
             className="
+            inline-flex
+            items-center
+            gap-2
             rounded-full
             border
             border-[var(--border)]
-            px-6
+            px-5
             py-2
-            font-[var(--font-hindi)]
+
             text-sm
             text-[var(--muted)]
+
             transition-all
             duration-300
+
             hover:border-[var(--gold)]
             hover:text-[var(--gold)]
             "
         >
-            {active
-                ? "सामान्य दृश्य"
-                : "📖 पाठ मोड"
-            }
+
+            <span>
+                {active ? "×" : "📖"}
+            </span>
+
+            <span>
+                {
+                    active
+                        ? "Exit Reading Mode"
+                        : "Reading Mode"
+                }
+            </span>
+
         </button>
+
     );
 }

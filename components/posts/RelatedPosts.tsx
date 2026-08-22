@@ -23,20 +23,6 @@ export default function RelatedPosts({
             pt-8
             "
         >
-            <h2
-                className="
-    mb-5
-    font-[var(--font-hindi)]
-    text-sm
-    font-medium
-    tracking-wide
-    text-[var(--muted)]
-    "
-            >
-                आपको यह भी पसंद आ सकता है
-            </h2>
-
-
             <div
                 className="
                 space-y-5

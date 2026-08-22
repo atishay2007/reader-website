@@ -12,6 +12,7 @@ const links = [
 export default function Header() {
     return (
         <header className="
+            reading-hide
             border-b
             border-[var(--border)]
             bg-[var(--paper)]

@@ -16,6 +16,7 @@ export default function Footer() {
     return (
         <footer
             className="
+            reading-hide
             border-t
             border-[var(--border)]
             bg-[var(--paper)]

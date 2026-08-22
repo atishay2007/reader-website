@@ -172,20 +172,21 @@ export default function ShareButton({
             {open && (
 
                 <div
-                    className="
-                    absolute
-                    right-0
-                    z-50
-                    mt-3
-                    w-56
-                    rounded-xl
-                    border
-                    border-[var(--border)]
-                    bg-[var(--paper)]
-                    p-3
-                    shadow-xl
-                    "
-                >
+    className="
+    absolute
+    right-0
+    top-full
+    z-[100]
+    mt-3
+    w-56
+    rounded-xl
+    border
+    border-[var(--border)]
+    bg-[var(--paper)]
+    p-3
+    shadow-xl
+    "
+>
 
 
                     <button
