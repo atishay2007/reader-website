@@ -2,6 +2,7 @@ export default function OrganizationSchema() {
 
     const schema = {
         "@context": "https://schema.org",
+
         "@type": "Organization",
 
         name: "Shree Deshna",
@@ -10,14 +11,22 @@ export default function OrganizationSchema() {
 
         url: "https://shreedeshna.in",
 
-        logo: "https://shreedeshna.in/logo/logo.png",
+        logo: {
+            "@type": "ImageObject",
+            url: "https://shreedeshna.in/logo/logo.png",
+        },
 
         description:
             "Shree Deshna (श्री देशना) is a digital archive of Hindi literature, Jain philosophy, culture, poetry and social thought.",
 
-        sameAs: [
-            // add social links here later
+        knowsAbout: [
+            "Hindi Literature",
+            "Jain Philosophy",
+            "Indian Culture",
+            "Poetry",
         ],
+
+        sameAs: [],
     };
 
 
