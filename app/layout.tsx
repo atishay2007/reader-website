@@ -18,12 +18,15 @@ export const metadata: Metadata = {
         google: "qv3FFaCC5nfl4GLzlCB3Kp56rCvB4s9i51XvD_A-Oq4",
     },
     title: {
-        default: "श्री देशना | हिंदी साहित्य एवं संस्कृति संग्रह",
-        template: "%s | श्री देशना",
+        default:
+            "श्री देशना (Shree Deshna) | हिंदी साहित्य एवं संस्कृति संग्रह",
+
+        template:
+            "%s | श्री देशना (Shree Deshna)",
     },
 
     description:
-        "श्री देशना हिंदी साहित्य, जैन दर्शन, संस्कृति, विचार और आध्यात्मिक लेखों का डिजिटल संग्रह है।",
+        "श्री देशना (Shree Deshna) हिंदी साहित्य, जैन दर्शन, संस्कृति, कविता, विचार और आध्यात्मिक लेखों का डिजिटल संग्रह है। Shree Deshna is a digital archive of Hindi literature and cultural writings.",
 
     keywords: [
         "श्री देशना",
@@ -36,9 +39,9 @@ export const metadata: Metadata = {
     ],
 
     openGraph: {
-        title: "श्री देशना",
+        title: "श्री देशना (Shree Deshna)",
         description:
-            "हिंदी साहित्य, विचार और संस्कृति का डिजिटल संग्रह।",
+            "श्री देशना (Shree Deshna) हिंदी साहित्य, विचार और संस्कृति का डिजिटल संग्रह।",
         url: "https://shreedeshna.in",
         siteName: "श्री देशना",
         locale: "hi_IN",
