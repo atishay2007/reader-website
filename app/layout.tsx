@@ -14,6 +14,9 @@ const hindi = Noto_Serif_Devanagari({
 export const metadata: Metadata = {
     metadataBase: new URL("https://shreedeshna.in"),
 
+    verification: {
+        google: "qv3FFaCC5nfl4GLzlCB3Kp56rCvB4s9i51XvD_A-Oq4",
+    },
     title: {
         default: "श्री देशना | हिंदी साहित्य एवं संस्कृति संग्रह",
         template: "%s | श्री देशना",
